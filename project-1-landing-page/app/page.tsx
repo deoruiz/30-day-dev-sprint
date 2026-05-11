@@ -1,4 +1,31 @@
 export default function Home() {
+    const learningItems = [
+        {
+            title: "React components",
+            description:
+                "I am learning how to build pages from small, reusable pieces of UI.",
+        },
+        {
+            title: "Tailwind styling",
+            description:
+                "I am practicing layout, spacing, colors, borders, and responsive design through utility classes.",
+        },
+        {
+            title: "Git workflow",
+            description:
+                "I am building the habit of checking changes, committing progress, and pushing proof to GitHub.",
+        },
+        {
+            title: "Product thinking",
+            description:
+                "I am learning how to make pages clear, useful, and focused on one strong next action.",
+        },
+        {
+            title: "Local development",
+            description:
+                "I am learning how to run projects on localhost, use ports, and preview changes instantly.",
+        },
+    ];
     return (
         <main className="min-h-screen bg-slate-950 text-white">
             <section className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 py-20 text-center">
@@ -64,7 +91,7 @@ export default function Home() {
 
                 <div
                     id="progress"
-                    className="mt-16 w-full rounded-3xl border border-white/10 bg-white/[0.03] p-6 text-left sm:p-8"
+                    className="mt-16 w-full rounded-3xl border border-white/10 bg-white/3 p-6 text-left sm:p-8"
                 >
                     <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
                         Progress log
@@ -104,6 +131,44 @@ export default function Home() {
                                 proof.
                             </p>
                         </div>
+                    </div>
+                </div>
+                <div className="mt-16 w-full text-left">
+                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
+                        Learning stack
+                    </p>
+
+                    <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
+                        <div>
+                            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
+                                What I’m learning as I build.
+                            </h2>
+
+                            <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
+                                Every section of this page is teaching me a real
+                                frontend skill: layout, component structure,
+                                responsive design, and clear product
+                                communication.
+                            </p>
+                        </div>
+
+                        <p className="rounded-full border border-white/10 px-4 py-2 text-sm text-slate-400">
+                            5 skills in progress
+                        </p>
+                    </div>
+
+                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
+                        {learningItems.map((item) => (
+                            <div
+                                key={item.title}
+                                className="rounded-2xl border border-white/10 bg-white/5 p-6"
+                            >
+                                <h3 className="font-semibold">{item.title}</h3>
+                                <p className="mt-3 text-sm leading-6 text-slate-400">
+                                    {item.description}
+                                </p>
+                            </div>
+                        ))}
                     </div>
                 </div>
             </section>
