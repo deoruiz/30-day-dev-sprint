@@ -1,27 +1,32 @@
 export default function Home() {
     const learningItems = [
         {
-            title: "React components",
+          id: "react-components",  
+          title: "React components",
             description:
                 "I am learning how to build pages from small, reusable pieces of UI.",
         },
         {
-            title: "Tailwind styling",
+          id: "tailwind-styling",
+          title: "Tailwind styling",
             description:
                 "I am practicing layout, spacing, colors, borders, and responsive design through utility classes.",
         },
         {
-            title: "Git workflow",
+          id: "git-workflow",
+          title: "Git workflow",
             description:
                 "I am building the habit of checking changes, committing progress, and pushing proof to GitHub.",
         },
         {
-            title: "Product thinking",
+          id: "product-thinking",
+          title: "Product thinking",
             description:
                 "I am learning how to make pages clear, useful, and focused on one strong next action.",
         },
         {
-            title: "Local development",
+          id: "local-development",
+          title: "Local development",
             description:
                 "I am learning how to run projects on localhost, use ports, and preview changes instantly.",
         },
@@ -160,7 +165,7 @@ export default function Home() {
                     <div className="mt-8 grid gap-4 sm:grid-cols-2">
                         {learningItems.map((item) => (
                             <div
-                                key={item.title}
+                                key={item.id}
                                 className="rounded-2xl border border-white/10 bg-white/5 p-6"
                             >
                                 <h3 className="font-semibold">{item.title}</h3>
