@@ -118,7 +118,9 @@ export default function Home() {
     ];
 
     return (
-        <main className="min-h-screen bg-slate-950 text-white">
+        <main className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
+            <div className="pointer-events-none absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-cyan-500/20 blur-3xl" />
+            <div className="pointer-events-none absolute right-0 top-1/3 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl" />
             <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 backdrop-blur">
                 <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
                     <a href="#" className="text-sm font-bold tracking-tight">
@@ -146,7 +148,7 @@ export default function Home() {
                 </nav>
             </header>
 
-            <section className="mx-auto grid min-h-screen max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr]">
+            <section className="relative z-10 mx-auto grid min-h-screen max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr]">
                 <div className="text-left">
                     <p className="mb-5 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300">
                         Unofficial redesign concept · Precision manufacturing
@@ -182,15 +184,19 @@ export default function Home() {
                     <div className="mt-10 grid gap-3 sm:grid-cols-3">
                         {trustSignals.map((signal) => (
                             <div
-                                key={signal.id}
-                                className="rounded-2xl border border-white/10 bg-white/5 p-4"
+                                key={signal.value}
+                                className="flex items-start justify-between gap-4"
                             >
-                                <p className="text-2xl font-bold">
-                                    {signal.value}
-                                </p>
-                                <p className="mt-2 text-xs leading-5 text-slate-400">
-                                    {signal.label}
-                                </p>
+                                <div>
+                                    <p className="text-3xl font-bold">
+                                        {signal.value}
+                                    </p>
+                                    <p className="mt-3 text-sm leading-6 text-slate-400">
+                                        {signal.label}
+                                    </p>
+                                </div>
+
+                                <span className="mt-1 h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_18px_rgba(103,232,249,0.8)]" />
                             </div>
                         ))}
                     </div>
@@ -222,7 +228,27 @@ export default function Home() {
                                 parts?
                             </p>
                         </div>
+                        <div className="mt-6 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-4">
+                            <div className="flex items-center justify-between gap-4">
+                                <div>
+                                    <p className="text-sm font-semibold text-cyan-100">
+                                        Quote readiness score
+                                    </p>
+                                    <p className="mt-1 text-xs text-cyan-100/70">
+                                        Capability, quality, and RFQ path
+                                        visible above the fold.
+                                    </p>
+                                </div>
 
+                                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-300/10 text-sm font-bold text-cyan-100">
+                                    92%
+                                </div>
+                            </div>
+
+                            <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-900">
+                                <div className="h-full w-[92%] rounded-full bg-cyan-300" />
+                            </div>
+                        </div>
                         <div className="rounded-2xl bg-slate-900/80 p-4">
                             <p className="text-sm font-semibold">
                                 Website answer
@@ -263,7 +289,7 @@ export default function Home() {
                     {capabilities.map((capability) => (
                         <div
                             key={capability.id}
-                            className="rounded-2xl border border-white/10 bg-white/5 p-6"
+                            className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
                         >
                             <h3 className="font-semibold">
                                 {capability.title}
@@ -311,7 +337,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="mx-auto max-w-6xl px-6 py-20 text-left">
+            <section className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-left">
                 <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
                     <div>
                         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
@@ -335,7 +361,7 @@ export default function Home() {
                         {qualityPoints.map((point) => (
                             <div
                                 key={point.id}
-                                className="rounded-2xl border border-white/10 bg-white/5 p-6"
+                                className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
                             >
                                 <h3 className="font-semibold">{point.title}</h3>
                                 <p className="mt-3 text-sm leading-6 text-slate-400">
@@ -374,7 +400,7 @@ export default function Home() {
                         {processSteps.map((step) => (
                             <div
                                 key={step.id}
-                                className="rounded-2xl border border-white/10 bg-white/5 p-6"
+                                className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
                             >
                                 <p className="text-sm font-semibold text-slate-500">
                                     {step.step}
@@ -486,7 +512,7 @@ export default function Home() {
                             </label>
                         </div>
 
-                        <button className="mt-6 w-full rounded-xl bg-slate-950 px-6 py-4 text-sm font-semibold text-white transition hover:bg-slate-800">
+                        <button className="mt-6 w-full rounded-xl bg-slate-950 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-slate-800">
                             Submit RFQ request
                         </button>
 
