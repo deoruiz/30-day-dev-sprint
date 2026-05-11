@@ -1,4 +1,24 @@
 export default function Home() {
+    const qualityPoints = [
+        {
+            id: "certified-process",
+            title: "Certified quality systems",
+            description:
+                "Position AS9100 and ISO-aligned quality systems as proof that the shop can support high-requirement industries.",
+        },
+        {
+            id: "inspection",
+            title: "Inspection-ready production",
+            description:
+                "Highlight inspection discipline, documentation, and repeatable process control for complex parts.",
+        },
+        {
+            id: "production-confidence",
+            title: "Prototype to production confidence",
+            description:
+                "Help buyers understand that the company can support both early-stage development and ongoing production needs.",
+        },
+    ];
     const quoteRequirements = [
         "Part drawings or CAD files",
         "Material and finish requirements",
@@ -284,6 +304,42 @@ export default function Home() {
                             >
                                 <p className="text-sm font-medium text-slate-200">
                                     {industry}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section className="mx-auto max-w-6xl px-6 py-20 text-left">
+                <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+                    <div>
+                        <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
+                            Quality assurance
+                        </p>
+
+                        <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
+                            Reduce buyer risk with clearer quality signals.
+                        </h2>
+
+                        <p className="mt-5 text-sm leading-7 text-slate-300 sm:text-base">
+                            For aerospace, defense, medical, and semiconductor
+                            buyers, quality is not a nice-to-have. A stronger
+                            website should make certification, inspection, and
+                            production discipline easy to understand before the
+                            first quote request.
+                        </p>
+                    </div>
+
+                    <div className="grid gap-4">
+                        {qualityPoints.map((point) => (
+                            <div
+                                key={point.id}
+                                className="rounded-2xl border border-white/10 bg-white/5 p-6"
+                            >
+                                <h3 className="font-semibold">{point.title}</h3>
+                                <p className="mt-3 text-sm leading-6 text-slate-400">
+                                    {point.description}
                                 </p>
                             </div>
                         ))}
