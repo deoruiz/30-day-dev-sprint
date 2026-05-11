@@ -1,181 +1,273 @@
 export default function Home() {
-    const learningItems = [
+    const trustSignals = [
         {
-          id: "react-components",  
-          title: "React components",
-            description:
-                "I am learning how to build pages from small, reusable pieces of UI.",
+            id: "founded",
+            value: "1972",
+            label: "Custom manufacturing experience since",
         },
         {
-          id: "tailwind-styling",
-          title: "Tailwind styling",
-            description:
-                "I am practicing layout, spacing, colors, borders, and responsive design through utility classes.",
+            id: "facility",
+            value: "80k",
+            label: "Square-foot manufacturing facility",
         },
         {
-          id: "git-workflow",
-          title: "Git workflow",
-            description:
-                "I am building the habit of checking changes, committing progress, and pushing proof to GitHub.",
-        },
-        {
-          id: "product-thinking",
-          title: "Product thinking",
-            description:
-                "I am learning how to make pages clear, useful, and focused on one strong next action.",
-        },
-        {
-          id: "local-development",
-          title: "Local development",
-            description:
-                "I am learning how to run projects on localhost, use ports, and preview changes instantly.",
+            id: "certified",
+            value: "AS9100",
+            label: "Aerospace quality certification",
         },
     ];
+
+    const capabilities = [
+        {
+            id: "cnc-machining",
+            title: "CNC machining",
+            description:
+                "5-axis, vertical, horizontal, and turning capabilities for complex precision components.",
+        },
+        {
+            id: "sheet-metal",
+            title: "Sheet metal fabrication",
+            description:
+                "Laser cutting, punching, forming, welding, and fabricated assemblies under one roof.",
+        },
+        {
+            id: "quality",
+            title: "Quality assurance",
+            description:
+                "Certification-backed inspection and process discipline for high-requirement industries.",
+        },
+    ];
+
+    const industries = [
+        "Aerospace",
+        "Defense",
+        "Medical",
+        "Semiconductor",
+        "Communication",
+        "Detection & sensing",
+        "Water filtration",
+        "Undersea exploration",
+    ];
+
+    const processSteps = [
+        {
+            id: "drawings",
+            step: "01",
+            title: "Send drawings or requirements",
+            description:
+                "Make it easy for buyers to submit part files, materials, quantities, tolerances, and timelines.",
+        },
+        {
+            id: "review",
+            step: "02",
+            title: "Engineering review",
+            description:
+                "Clarify manufacturability, production needs, quality requirements, and next-step recommendations.",
+        },
+        {
+            id: "quote",
+            step: "03",
+            title: "Receive a production-ready quote",
+            description:
+                "Give procurement teams a clear path from inquiry to quote without digging through a dated website.",
+        },
+    ];
+
     return (
         <main className="min-h-screen bg-slate-950 text-white">
             <section className="mx-auto flex min-h-screen max-w-6xl flex-col items-center justify-center px-6 py-20 text-center">
                 <p className="mb-5 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300">
-                    30 Day Dev Sprint · Project 1
+                    Unofficial redesign concept · Precision manufacturing
                 </p>
 
                 <h1 className="max-w-4xl text-4xl font-bold tracking-tight sm:text-6xl">
-                    I’m building real frontend skill through calm, focused daily
-                    shipping.
+                    Precision CNC machining and fabrication for mission-critical
+                    parts.
                 </h1>
 
                 <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-                    This project is my first proof piece: a responsive,
-                    conversion-focused landing page built with Next.js,
-                    TypeScript, and Tailwind CSS.
+                    A modern RFQ-focused website concept for established U.S.
+                    manufacturers serving aerospace, defense, medical,
+                    semiconductor, and industrial buyers.
                 </p>
 
                 <div className="mt-10 flex flex-col gap-4 sm:flex-row">
                     <a
-                        href="#features"
+                        href="#rfq"
                         className="rounded-xl bg-white px-6 py-3 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
                     >
-                        See what I’m building
+                        Request a quote
                     </a>
 
                     <a
-                        href="#progress"
+                        href="#capabilities"
                         className="rounded-xl border border-white/15 px-6 py-3 text-sm font-semibold text-white transition hover:bg-white/10"
                     >
-                        View my progress
+                        View capabilities
                     </a>
                 </div>
 
-                <div
-                    id="features"
-                    className="mt-16 grid w-full gap-4 text-left sm:grid-cols-3"
-                >
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                        <h2 className="font-semibold">Responsive layout</h2>
-                        <p className="mt-3 text-sm leading-6 text-slate-400">
-                            Built to look clean on phones, tablets, and desktop
-                            screens.
-                        </p>
+                <div className="mt-16 grid w-full gap-4 text-left sm:grid-cols-3">
+                    {trustSignals.map((signal) => (
+                        <div
+                            key={signal.id}
+                            className="rounded-2xl border border-white/10 bg-white/5 p-6"
+                        >
+                            <p className="text-3xl font-bold">{signal.value}</p>
+                            <p className="mt-3 text-sm leading-6 text-slate-400">
+                                {signal.label}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section
+                id="capabilities"
+                className="mx-auto max-w-6xl px-6 py-20 text-left"
+            >
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
+                    Capabilities
+                </p>
+
+                <div className="mt-4 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-end">
+                    <div>
+                        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                            Built to communicate manufacturing depth faster.
+                        </h2>
                     </div>
 
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                        <h2 className="font-semibold">Clear conversion path</h2>
-                        <p className="mt-3 text-sm leading-6 text-slate-400">
-                            Every section will guide visitors toward one simple
-                            next action.
-                        </p>
-                    </div>
-
-                    <div className="rounded-2xl border border-white/10 bg-white/5 p-6">
-                        <h2 className="font-semibold">Daily proof</h2>
-                        <p className="mt-3 text-sm leading-6 text-slate-400">
-                            Each commit shows visible progress and stronger
-                            frontend skill.
-                        </p>
-                    </div>
+                    <p className="text-sm leading-7 text-slate-300 sm:text-base">
+                        The goal of this redesign is to make core services,
+                        quality signals, and buyer next steps immediately clear
+                        for procurement and engineering teams.
+                    </p>
                 </div>
 
-                <div
-                    id="progress"
-                    className="mt-16 w-full rounded-3xl border border-white/10 bg-white/3 p-6 text-left sm:p-8"
-                >
+                <div className="mt-10 grid gap-4 lg:grid-cols-3">
+                    {capabilities.map((capability) => (
+                        <div
+                            key={capability.id}
+                            className="rounded-2xl border border-white/10 bg-white/5 p-6"
+                        >
+                            <h3 className="font-semibold">
+                                {capability.title}
+                            </h3>
+                            <p className="mt-3 text-sm leading-6 text-slate-400">
+                                {capability.description}
+                            </p>
+                        </div>
+                    ))}
+                </div>
+            </section>
+
+            <section className="mx-auto max-w-6xl px-6 py-20 text-left">
+                <div className="rounded-3xl border border-white/10 bg-white/3 p-6 sm:p-8">
                     <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-                        Progress log
+                        Industries served
                     </p>
 
-                    <h2 className="mt-4 text-2xl font-bold tracking-tight sm:text-3xl">
-                        Day 1: from setup to shipped UI.
+                    <h2 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-4xl">
+                        Designed for buyers who need trust before they request a
+                        quote.
                     </h2>
 
-                    <p className="mt-4 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base">
-                        Today I set up my local development environment, created
-                        my first Next.js app, learned how localhost and ports
-                        work, replaced the default starter page, and committed
-                        my first custom landing page section.
+                    <p className="mt-5 max-w-3xl text-sm leading-7 text-slate-300 sm:text-base">
+                        High-requirement industries need more than a contact
+                        form. They need fast answers about capability, quality,
+                        experience, and production readiness.
                     </p>
 
-                    <div className="mt-8 grid gap-4 sm:grid-cols-3">
-                        <div className="rounded-2xl bg-white/5 p-5">
-                            <p className="text-3xl font-bold">01</p>
-                            <p className="mt-2 text-sm text-slate-400">
-                                Working local app running on port 3001.
-                            </p>
-                        </div>
-
-                        <div className="rounded-2xl bg-white/5 p-5">
-                            <p className="text-3xl font-bold">02</p>
-                            <p className="mt-2 text-sm text-slate-400">
-                                Custom hero and feature cards built with
-                                Tailwind.
-                            </p>
-                        </div>
-
-                        <div className="rounded-2xl bg-white/5 p-5">
-                            <p className="text-3xl font-bold">03</p>
-                            <p className="mt-2 text-sm text-slate-400">
-                                GitHub commit history started with visible
-                                proof.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-                <div className="mt-16 w-full text-left">
-                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-                        Learning stack
-                    </p>
-
-                    <div className="mt-4 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
-                        <div>
-                            <h2 className="text-2xl font-bold tracking-tight sm:text-3xl">
-                                What I’m learning as I build.
-                            </h2>
-
-                            <p className="mt-4 max-w-2xl text-sm leading-7 text-slate-300 sm:text-base">
-                                Every section of this page is teaching me a real
-                                frontend skill: layout, component structure,
-                                responsive design, and clear product
-                                communication.
-                            </p>
-                        </div>
-
-                        <p className="rounded-full border border-white/10 px-4 py-2 text-sm text-slate-400">
-                            5 skills in progress
-                        </p>
-                    </div>
-
-                    <div className="mt-8 grid gap-4 sm:grid-cols-2">
-                        {learningItems.map((item) => (
+                    <div className="mt-10 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
+                        {industries.map((industry) => (
                             <div
-                                key={item.id}
-                                className="rounded-2xl border border-white/10 bg-white/5 p-6"
+                                key={industry}
+                                className="rounded-2xl border border-white/10 bg-slate-900/70 px-5 py-4"
                             >
-                                <h3 className="font-semibold">{item.title}</h3>
-                                <p className="mt-3 text-sm leading-6 text-slate-400">
-                                    {item.description}
+                                <p className="text-sm font-medium text-slate-200">
+                                    {industry}
                                 </p>
                             </div>
                         ))}
                     </div>
                 </div>
+            </section>
+
+            <section className="mx-auto max-w-6xl px-6 py-20 text-left">
+                <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
+                    RFQ journey
+                </p>
+
+                <div className="mt-4 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
+                    <div>
+                        <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                            A clearer path from first visit to qualified
+                            inquiry.
+                        </h2>
+
+                        <p className="mt-5 text-sm leading-7 text-slate-300 sm:text-base">
+                            This concept gives engineering and procurement
+                            buyers a simple route to submit requirements,
+                            understand capabilities, and start a serious quoting
+                            conversation.
+                        </p>
+                    </div>
+
+                    <div className="grid gap-4">
+                        {processSteps.map((step) => (
+                            <div
+                                key={step.id}
+                                className="rounded-2xl border border-white/10 bg-white/5 p-6"
+                            >
+                                <p className="text-sm font-semibold text-slate-500">
+                                    {step.step}
+                                </p>
+                                <h3 className="mt-3 font-semibold">
+                                    {step.title}
+                                </h3>
+                                <p className="mt-3 text-sm leading-6 text-slate-400">
+                                    {step.description}
+                                </p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </section>
+
+            <section id="rfq" className="mx-auto max-w-6xl px-6 py-20">
+                <div className="rounded-3xl border border-white/10 bg-white p-8 text-slate-950 sm:p-10">
+                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
+                        Request for quote
+                    </p>
+
+                    <div className="mt-4 grid gap-8 lg:grid-cols-[1fr_0.8fr] lg:items-center">
+                        <div>
+                            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
+                                Send your drawings. Start the manufacturing
+                                conversation.
+                            </h2>
+
+                            <p className="mt-5 max-w-2xl text-sm leading-7 text-slate-600 sm:text-base">
+                                A stronger RFQ section helps serious buyers
+                                understand exactly what to send: drawings,
+                                materials, quantities, timelines, tolerances,
+                                and contact details.
+                            </p>
+                        </div>
+
+                        <a
+                            href="mailto:rfq@example.com"
+                            className="inline-flex justify-center rounded-xl bg-slate-950 px-6 py-4 text-sm font-semibold text-white transition hover:bg-slate-800"
+                        >
+                            Start an RFQ
+                        </a>
+                    </div>
+                </div>
+
+                <p className="mt-8 text-center text-xs leading-6 text-slate-500">
+                    Unofficial redesign concept created for portfolio practice.
+                    Not affiliated with Sparton Technology Corporation.
+                </p>
             </section>
         </main>
     );
