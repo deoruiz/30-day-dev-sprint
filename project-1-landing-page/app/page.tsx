@@ -58,6 +58,14 @@ function CinematicHero() {
     };
 
     useEffect(() => {
+        const prefersReducedMotion = window.matchMedia(
+            "(prefers-reduced-motion: reduce)",
+        ).matches;
+
+        if (prefersReducedMotion) {
+            return;
+        }
+
         const intervalId = window.setInterval(() => {
             setActiveIndex((currentIndex) =>
                 currentIndex === heroSlides.length - 1 ? 0 : currentIndex + 1,
@@ -69,7 +77,7 @@ function CinematicHero() {
 
     return (
         <section className="relative z-10 w-full py-0">
-            <div className="relative min-h-290 overflow-hidden border-y border-white/10 bg-slate-950 shadow-2xl shadow-black/40">
+            <div className="relative min-h-[680px] overflow-hidden border-y border-white/10 bg-slate-950 shadow-2xl shadow-black/40 md:min-h-[760px]">
                 {heroSlides.map((slide, index) => (
                     <div
                         key={slide.id}
@@ -88,8 +96,7 @@ function CinematicHero() {
 
                 <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(2,6,23,0.96)_0%,rgba(2,6,23,0.78)_42%,rgba(2,6,23,0.24)_72%,rgba(2,6,23,0.74)_100%)]" />
                 <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(2,6,23,0.12)_0%,rgba(2,6,23,0.18)_46%,rgba(2,6,23,0.86)_100%)]" />
-                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-size[54px_54px] opacity-35" />
-
+                <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:54px_54px] opacity-35" />
                 <div
                     className="absolute left-0 top-0 z-20 h-1 bg-cyan-300 transition-all duration-700"
                     style={{
@@ -97,7 +104,7 @@ function CinematicHero() {
                     }}
                 />
 
-                <div className="relative z-10 flex min-h-190 flex-col justify-between p-5 sm:p-8 lg:p-10">
+                <div className="relative z-10 flex min-h-[680px] flex-col justify-between p-5 sm:p-8 lg:min-h-[760px] lg:p-10">
                     <header className="flex items-center justify-between gap-4">
                         <a
                             href="#"
@@ -114,7 +121,7 @@ function CinematicHero() {
                         </a>
                     </header>
 
-                    <div className="grid flex-1 items-end gap-10 pb-20 pt-20 lg:grid-cols-[1fr_560px] lg:pb-28">
+                    <div className="grid flex-1 items-center gap-10 py-16 lg:grid-cols-[1fr_560px] lg:items-end lg:pb-28 lg:pt-20">
                         <div className="max-w-3xl">
                             <div className="mb-5 flex items-center gap-3">
                                 <span className="h-1 w-10 rounded-full bg-cyan-300" />
@@ -123,7 +130,7 @@ function CinematicHero() {
                                 </p>
                             </div>
 
-                            <h1 className="text-5xl font-black uppercase leading-[0.9] tracking-tight text-white sm:text-7xl lg:text-8xl">
+                            <h1 className="max-w-4xl text-4xl font-black uppercase leading-[0.92] tracking-tight text-white sm:text-6xl lg:text-8xl">
                                 {activeSlide.title}
                             </h1>
 
@@ -148,6 +155,39 @@ function CinematicHero() {
                             </div>
                         </div>
 
+                        <div className="mt-6 flex items-center gap-3 rounded-full border border-white/10 bg-slate-950/45 p-2 backdrop-blur lg:hidden">
+                            <button
+                                type="button"
+                                onClick={goToPreviousSlide}
+                                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10"
+                                aria-label="Previous hero slide"
+                            >
+                                ←
+                            </button>
+
+                            <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/20">
+                                <div
+                                    className="h-full rounded-full bg-cyan-300 transition-all duration-700"
+                                    style={{
+                                        width: `${((activeIndex + 1) / heroSlides.length) * 100}%`,
+                                    }}
+                                />
+                            </div>
+
+                            <p className="w-9 text-center text-sm font-black tabular-nums text-white">
+                                {String(activeIndex + 1).padStart(2, "0")}
+                            </p>
+
+                            <button
+                                type="button"
+                                onClick={goToNextSlide}
+                                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10"
+                                aria-label="Next hero slide"
+                            >
+                                →
+                            </button>
+                        </div>
+
                         <div className="hidden lg:grid">
                             <div className="grid min-h-72 grid-cols-3 gap-4">
                                 {heroSlides.map((slide, index) => (
@@ -155,6 +195,7 @@ function CinematicHero() {
                                         key={slide.id}
                                         type="button"
                                         onClick={() => goToSlide(index)}
+                                        aria-pressed={index === activeIndex}
                                         className={`group relative min-h-72 overflow-hidden rounded-2xl border text-left shadow-2xl shadow-black/30 transition ${
                                             index === activeIndex
                                                 ? "border-cyan-300/70 opacity-100 shadow-[0_0_0_1px_rgba(103,232,249,0.45),0_24px_50px_rgba(0,0,0,0.38)]"
@@ -221,45 +262,21 @@ function CinematicHero() {
     );
 }
 export default function Home() {
-    {
-        /*const productionSnapshot = [
-        {
-            id: "material",
-            label: "Material",
-            value: "6061 Aluminum",
-        },
-        {
-            id: "process",
-            label: "Process",
-            value: "5-axis CNC",
-        },
-        {
-            id: "tolerance",
-            label: "Tolerance",
-            value: "±0.002 in",
-        },
-        {
-            id: "quantity",
-            label: "Quantity",
-            value: "250 units",
-        },
-    ];*/
-    }
     const redesignComparison = [
         {
             id: "capability",
-            before: "Capabilities are spread across dense pages.",
-            after: "Machining, fabrication, quality, and RFQ paths are grouped into one clear buyer journey.",
+            before: "A supplier that can support complex parts across more than one process.",
+            after: "CNC machining, sheet metal fabrication, weldments, assembly, and production support in one facility.",
         },
         {
-            id: "trust",
-            before: "Certifications and proof points are easy to miss.",
-            after: "Experience, facility scale, and quality signals appear early where buyers evaluate risk.",
+            id: "quality",
+            before: "Clear quality signals before drawings, tolerances, or regulated requirements are shared.",
+            after: "AS9100 / ISO9001-aligned systems, inspection discipline, and documentation-ready production support.",
         },
         {
-            id: "action",
-            before: "The next step feels like a generic contact request.",
-            after: "The RFQ path tells buyers exactly what to prepare before starting a quote.",
+            id: "rfq",
+            before: "A quoting path that helps engineering and procurement teams move quickly.",
+            after: "A focused RFQ process for drawings, materials, quantities, timelines, and certification needs.",
         },
     ];
     const capabilityDetails = [
@@ -267,67 +284,45 @@ export default function Home() {
             id: "precision-machining",
             title: "Precision machining",
             bestFor:
-                "Complex components, tight-tolerance parts, and production runs",
+                "Tight-tolerance components, production parts, prototypes, fixtures, and complex machined assemblies.",
             confidence:
-                "Helps engineering buyers quickly see whether the shop can support high-requirement parts.",
+                "Engineering teams can start with a clear understanding of process fit, material needs, tolerances, and production expectations.",
         },
         {
             id: "fabrication",
-            title: "Integrated fabrication",
+            title: "Sheet metal and fabrication",
             bestFor:
-                "Sheet metal, welded assemblies, formed parts, and heavy-gage work",
+                "Formed parts, laser-cut components, welded structures, fabricated enclosures, and heavy-gage assemblies.",
             confidence:
-                "Positions the company as more than a machine shop by showing broader manufacturing support.",
+                "Procurement teams can reduce vendor fragmentation by sourcing machined and fabricated work through one coordinated partner.",
         },
         {
             id: "quality-documentation",
-            title: "Quality documentation",
+            title: "Inspection and documentation",
             bestFor:
-                "Aerospace, defense, medical, and regulated industrial programs",
+                "Aerospace, defense, medical, semiconductor, and industrial programs with quality, traceability, or repeatability needs.",
             confidence:
-                "Gives procurement teams confidence that certification, inspection, and repeatability are part of the process.",
+                "Quality requirements can be addressed early, helping teams align drawings, tolerances, certifications, and inspection expectations before production.",
         },
     ];
-    {
-        /* const redesignWins = [
-        {
-            id: "clarity",
-            problem: "Scattered capability information",
-            improvement: "Clear service hierarchy",
-            value: "Buyers can understand machining, fabrication, quality, and RFQ paths faster.",
-        },
-        {
-            id: "trust",
-            problem: "Important proof buried in page copy",
-            improvement: "Visible trust signals",
-            value: "Certifications, facility size, and industry experience become easier to notice.",
-        },
-        {
-            id: "conversion",
-            problem: "Generic contact flow",
-            improvement: "RFQ-focused buyer journey",
-            value: "Qualified leads know what information to submit before starting the quote conversation.",
-        },
-    ];*/
-    }
     const qualityPoints = [
         {
             id: "certified-process",
             title: "Certified quality systems",
             description:
-                "Position AS9100 and ISO-aligned quality systems as proof that the shop can support high-requirement industries.",
+                "AS9100 / ISO9001-aligned systems help support customers with demanding aerospace, defense, medical, and industrial requirements.",
         },
         {
             id: "inspection",
             title: "Inspection-ready production",
             description:
-                "Highlight inspection discipline, documentation, and repeatable process control for complex parts.",
+                "Inspection planning, documentation, and process discipline help teams align on tolerances, repeatability, and production expectations.",
         },
         {
             id: "production-confidence",
             title: "Prototype to production confidence",
             description:
-                "Help buyers understand that the company can support both early-stage development and ongoing production needs.",
+                "From early-stage builds to ongoing production programs, Sparton helps customers move forward with clearer quality expectations.",
         },
     ];
     const quoteRequirements = [
@@ -354,44 +349,25 @@ export default function Home() {
             href: "#process",
         },
     ];
-    {
-        /*const trustSignals = [
-        {
-            id: "founded",
-            value: "1972",
-            label: "Custom manufacturing experience since",
-        },
-        {
-            id: "facility",
-            value: "80k",
-            label: "Square-foot manufacturing facility",
-        },
-        {
-            id: "certified",
-            value: "AS9100",
-            label: "Aerospace quality certification",
-        },
-    ];*/
-    }
 
     const capabilities = [
         {
             id: "cnc-machining",
             title: "CNC machining",
             description:
-                "5-axis, vertical, horizontal, and turning capabilities for complex precision components.",
+                "Precision milling, turning, and multi-axis machining for complex components, tight tolerances, and production-ready parts.",
         },
         {
             id: "sheet-metal",
             title: "Sheet metal fabrication",
             description:
-                "Laser cutting, punching, forming, welding, and fabricated assemblies under one roof.",
+                "Laser cutting, punching, forming, welding, and fabricated assemblies supported by experienced production teams.",
         },
         {
             id: "quality",
             title: "Quality assurance",
             description:
-                "Certification-backed inspection and process discipline for high-requirement industries.",
+                "Inspection, documentation, and certification-focused processes built for aerospace, defense, medical, and industrial requirements.",
         },
     ];
 
@@ -410,23 +386,23 @@ export default function Home() {
         {
             id: "drawings",
             step: "01",
-            title: "Send drawings or requirements",
+            title: "Share drawings and requirements",
             description:
-                "Make it easy for buyers to submit part files, materials, quantities, tolerances, and timelines.",
+                "Send part files, materials, quantities, tolerances, timelines, and any certification or documentation needs.",
         },
         {
             id: "review",
             step: "02",
-            title: "Engineering review",
+            title: "Review fit and manufacturability",
             description:
-                "Clarify manufacturability, production needs, quality requirements, and next-step recommendations.",
+                "Sparton reviews the project details to understand process fit, production needs, quality expectations, and next-step recommendations.",
         },
         {
             id: "quote",
             step: "03",
-            title: "Receive a production-ready quote",
+            title: "Move forward with a clear quote",
             description:
-                "Give procurement teams a clear path from inquiry to quote without digging through a dated website.",
+                "Receive a quote path built around the project scope, timeline, materials, and production requirements.",
         },
     ];
 
@@ -434,11 +410,14 @@ export default function Home() {
         <main className="relative min-h-screen overflow-hidden bg-slate-950 text-white">
             <div className="pointer-events-none absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-cyan-500/20 blur-3xl" />
             <div className="pointer-events-none absolute right-0 top-1/3 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl" />
-            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-size-[48px_48px]" />
-            <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/85 backdrop-blur">
-                <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4">
-                    <a href="#" className="text-sm font-bold tracking-tight">
-                        Sparton Concept
+            <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:48px_48px]" />
+            <header className="sticky top-0 z-50 border-b border-white/10 bg-slate-950/90 backdrop-blur-xl">
+                <nav className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-4 py-3 sm:px-6 md:py-4">
+                    <a
+                        href="#"
+                        className="text-sm font-bold tracking-tight text-white"
+                    >
+                        Sparton
                     </a>
 
                     <div className="hidden items-center gap-6 md:flex">
@@ -455,245 +434,45 @@ export default function Home() {
 
                     <a
                         href="#rfq"
-                        className="rounded-xl bg-white px-4 py-2 text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
+                        className="shrink-0 rounded-xl bg-white px-3 py-2 text-xs font-semibold text-slate-950 transition hover:bg-slate-200 sm:px-4 sm:text-sm"
                     >
                         Request Quote
                     </a>
                 </nav>
+
+                <div className="mx-auto flex max-w-6xl gap-2 overflow-x-auto px-4 pb-3 [-ms-overflow-style:none] [scrollbar-width:none] sm:px-6 md:hidden">
+                    {navLinks.map((link) => (
+                        <a
+                            key={link.id}
+                            href={link.href}
+                            className="shrink-0 rounded-full border border-white/10 bg-white/5 px-4 py-2 text-xs font-semibold text-slate-300 transition hover:bg-white/10 hover:text-white"
+                        >
+                            {link.label}
+                        </a>
+                    ))}
+                </div>
             </header>
             <CinematicHero />
-            {/*
-            <section className="relative z-10 mx-auto grid min-h-screen max-w-6xl items-center gap-12 px-6 py-20 lg:grid-cols-[1.05fr_0.95fr]">
-                <div className="text-left">
-                    <p className="mb-5 inline-flex rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm font-medium text-slate-300">
-                        AS9100 / ISO9001 certified contract manufacturing
-                    </p>
 
-                    <h1 className="max-w-4xl text-4xl font-bold tracking-tight sm:text-6xl">
-                        Complex parts. Certified quality. One manufacturing
-                        partner.
-                    </h1>
-
-                    <p className="mt-6 max-w-2xl text-lg leading-8 text-slate-300">
-                        From CNC machining and precision sheet metal fabrication
-                        to assembly and inventory support, Sparton Technology
-                        helps manufacturers reduce supplier complexity and move
-                        confidently from prototype to production.
-                    </p>
-
-                    <div className="mt-10 flex flex-col gap-4 sm:flex-row">
-                        <a
-                            href="#rfq"
-                            className="rounded-xl bg-white px-6 py-3 text-center text-sm font-semibold text-slate-950 transition hover:bg-slate-200"
-                        >
-                            Start your RFQ
-                        </a>
-
-                        <a
-                            href="#capabilities"
-                            className="rounded-xl border border-white/15 px-6 py-3 text-center text-sm font-semibold text-white transition hover:bg-white/10"
-                        >
-                            View capabilities
-                        </a>
-                    </div>
-
-                    <div className="mt-10 grid gap-3 sm:grid-cols-3">
-                        {trustSignals.map((signal) => (
-                            <div
-                                key={signal.value}
-                                className="flex items-start justify-between gap-4"
-                            >
-                                <div>
-                                    <p className="text-3xl font-bold">
-                                        {signal.value}
-                                    </p>
-                                    <p className="mt-3 text-sm leading-6 text-slate-400">
-                                        {signal.label}
-                                    </p>
-                                </div>
-
-                                <span className="mt-1 h-2.5 w-2.5 rounded-full bg-cyan-300 shadow-[0_0_18px_rgba(103,232,249,0.8)]" />
-                            </div>
-                        ))}
-                    </div>
-                </div>
-
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-6 text-left shadow-2xl shadow-black/30">
-                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-                        Production-ready support
-                    </p>
-
-                    <h2 className="mt-4 text-2xl font-bold tracking-tight">
-                        Machining, fabrication, and assembly built to reduce
-                        supplier complexity.
-                    </h2>
-
-                    <p className="mt-4 text-sm leading-7 text-slate-300">
-                        Source precision components, fabricated parts,
-                        weldments, and value-added assemblies through one
-                        certified manufacturing partner with the facility depth
-                        to support prototype, production, and blanket-order
-                        programs.
-                    </p>
-
-                    <div className="mt-6 grid gap-3">
-                        <div className="mt-6 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-4">
-                            <div className="flex items-center justify-between gap-4">
-                                <div>
-                                    <p className="text-sm font-semibold text-cyan-100">
-                                        Example project profile
-                                    </p>
-
-                                    <p className="mt-1 text-xs text-cyan-100/70">
-                                        Typical details our team reviews when
-                                        quoting complex parts.
-                                    </p>
-                                </div>
-
-                                <span className="rounded-full bg-cyan-300 px-3 py-1 text-xs font-bold text-slate-950">
-                                    Ready
-                                </span>
-                            </div>
-
-                            <div className="mt-5 grid gap-3 sm:grid-cols-2">
-                                {productionSnapshot.map((item) => (
-                                    <div
-                                        key={item.id}
-                                        className="rounded-xl border border-cyan-300/10 bg-slate-950/50 p-4"
-                                    >
-                                        <p className="text-xs uppercase tracking-[0.2em] text-cyan-100/50">
-                                            {item.label}
-                                        </p>
-                                        <p className="mt-2 text-sm font-semibold text-cyan-50">
-                                            {item.value}
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                        <div className="rounded-2xl bg-slate-900/80 p-4">
-                            <p className="text-sm font-semibold">
-                                Buyer question
-                            </p>
-                            <p className="mt-2 text-sm text-slate-400">
-                                Can this shop handle complex, high-requirement
-                                parts?
-                            </p>
-                        </div>
-                        <div className="mt-6 rounded-2xl border border-cyan-400/20 bg-cyan-400/10 p-4">
-                            <div className="flex items-center justify-between gap-4">
-                                <div>
-                                    <p className="text-sm font-semibold text-cyan-100">
-                                        Quote readiness score
-                                    </p>
-                                    <p className="mt-1 text-xs text-cyan-100/70">
-                                        Capability, quality, and RFQ path
-                                        visible above the fold.
-                                    </p>
-                                </div>
-
-                                <div className="flex h-14 w-14 items-center justify-center rounded-full border border-cyan-300/30 bg-cyan-300/10 text-sm font-bold text-cyan-100">
-                                    92%
-                                </div>
-                            </div>
-
-                            <div className="mt-4 h-2 overflow-hidden rounded-full bg-slate-900">
-                                <div className="h-full w-[92%] rounded-full bg-cyan-300" />
-                            </div>
-                        </div>
-                        <div className="rounded-2xl bg-slate-900/80 p-4">
-                            <p className="text-sm font-semibold">
-                                Website answer
-                            </p>
-                            <p className="mt-2 text-sm text-slate-400">
-                                Show certifications, capabilities, industries,
-                                facility depth, and a clear RFQ path above the
-                                fold.
-                            </p>
-                        </div>
-                    </div>
-                </div>
-            </section> */}
-            {/*
-            <section className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-left">
-                <div className="rounded-3xl border border-white/10 bg-white/5 p-6 sm:p-8">
-                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-                        Redesign strategy
-                    </p>
-
-                    <div className="mt-4 grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-                        <div>
-                            <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                                Turn an older brochure site into a clearer RFQ
-                                engine.
-                            </h2>
-
-                            <p className="mt-5 text-sm leading-7 text-slate-300 sm:text-base">
-                                The redesign focuses on making Sparton-style
-                                strengths easier to understand: capabilities,
-                                certifications, industries served, and the path
-                                to a serious quote request.
-                            </p>
-                        </div>
-                        <div className="grid gap-4">
-                            {redesignWins.map((win) => (
-                                <div
-                                    key={win.id}
-                                    className="rounded-2xl border border-white/10 bg-slate-900/70 p-5 transition hover:-translate-y-1 hover:border-white/20 hover:bg-slate-900"
-                                >
-                                    <div className="grid gap-4 sm:grid-cols-3">
-                                        <div>
-                                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                                                Problem
-                                            </p>
-                                            <p className="mt-2 text-sm text-slate-300">
-                                                {win.problem}
-                                            </p>
-                                        </div>
-
-                                        <div>
-                                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                                                Improvement
-                                            </p>
-                                            <p className="mt-2 text-sm text-slate-300">
-                                                {win.improvement}
-                                            </p>
-                                        </div>
-
-                                        <div>
-                                            <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                                                Business value
-                                            </p>
-                                            <p className="mt-2 text-sm text-slate-300">
-                                                {win.value}
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            ))}
-                        </div>
-                    </div>
-                </div>
-            </section>
-*/}
             <section className="relative z-10 mx-auto max-w-6xl px-6 py-24 text-left">
-                <div className="grid gap-6 lg:grid-cols-[0.9fr_1.1fr] lg:items-stretch">
+                <div className="grid gap-6 lg:grid-cols-[0.95fr_1.05fr] lg:items-stretch">
                     <div className="rounded-3xl border border-cyan-400/20 bg-cyan-400/10 p-8 sm:p-10">
                         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-cyan-200/80">
-                            The opportunity
+                            Manufacturing partner
                         </p>
 
                         <h2 className="mt-5 text-3xl font-bold tracking-tight sm:text-5xl">
-                            The company already has the proof. The website needs
-                            to make it impossible to miss.
+                            One source for machining, fabrication, assembly, and
+                            production support.
                         </h2>
 
                         <p className="mt-6 text-base leading-8 text-cyan-50/80">
-                            Established manufacturers often have decades of
-                            credibility, certified systems, and serious
-                            production capacity. But when that proof is buried,
-                            buyers have to work too hard before they request a
-                            quote.
+                            Sparton Technology supports teams that need more
+                            than a single-process vendor. With precision
+                            machining, sheet metal fabrication, quality systems,
+                            and value-added assembly under one roof, buyers can
+                            reduce supplier complexity without sacrificing
+                            control.
                         </p>
                     </div>
 
@@ -705,17 +484,17 @@ export default function Home() {
                             >
                                 <div className="grid gap-5 sm:grid-cols-2">
                                     <div>
-                                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-red-200/70">
-                                            Before
+                                        <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
+                                            Buyer need
                                         </p>
-                                        <p className="mt-3 text-sm leading-6 text-slate-400">
+                                        <p className="mt-3 text-sm leading-6 text-slate-300">
                                             {item.before}
                                         </p>
                                     </div>
 
                                     <div>
                                         <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                                            After
+                                            Sparton support
                                         </p>
                                         <p className="mt-3 text-sm leading-6 text-slate-200">
                                             {item.after}
@@ -739,30 +518,34 @@ export default function Home() {
                         </p>
 
                         <h2 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl">
-                            One facility story. Multiple manufacturing paths.
+                            Manufacturing support from first quote to finished
+                            component.
                         </h2>
 
                         <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">
-                            The page should help buyers quickly understand that
-                            machining, fabrication, assembly, and quality are
-                            connected parts of one production conversation.
+                            Sparton Technology brings machining, fabrication,
+                            assembly, and quality support into one coordinated
+                            production environment, helping teams source complex
+                            components with fewer handoffs and clearer
+                            accountability.
                         </p>
 
                         <div className="mt-10 rounded-3xl border border-white/10 bg-white p-8 text-slate-950 shadow-2xl shadow-black/20">
                             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-                                Primary buyer question
+                                Integrated production
                             </p>
 
                             <h3 className="mt-4 text-2xl font-bold tracking-tight">
-                                Can this team handle complex parts from quote to
-                                production?
+                                Complex components are easier to manage when
+                                critical processes stay connected.
                             </h3>
 
                             <p className="mt-4 text-sm leading-7 text-slate-600">
-                                A stronger site answers this quickly by
-                                connecting capability, quality, materials,
-                                industries, and the RFQ process in one guided
-                                flow.
+                                From machined parts and formed metal to
+                                weldments and value-added assemblies, Sparton
+                                helps buyers move through quoting, review,
+                                production, and delivery with one manufacturing
+                                partner.
                             </p>
                         </div>
                     </div>
@@ -785,7 +568,7 @@ export default function Home() {
                 </div>
             </section>
 
-            <section className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-left">
+            <section className="relative z-10 mx-auto max-w-6xl px-6 py-12 text-left">
                 <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
                     <div>
                         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
@@ -793,15 +576,15 @@ export default function Home() {
                         </p>
 
                         <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-                            Help technical buyers qualify the shop before they
-                            call.
+                            Built for buyers who need more than a single-process
+                            supplier.
                         </h2>
 
                         <p className="mt-5 text-sm leading-7 text-slate-300 sm:text-base">
-                            High-value manufacturing buyers scan for fit. The
-                            page should make it easy to see what the company can
-                            make, where it adds value, and why it is safe to
-                            begin a quote conversation.
+                            Sparton supports technical teams that need
+                            manufacturing flexibility, quality discipline, and a
+                            partner who can understand the full path from
+                            drawing review to repeat production.
                         </p>
                     </div>
 
@@ -809,7 +592,7 @@ export default function Home() {
                         {capabilityDetails.map((capability) => (
                             <div
                                 key={capability.id}
-                                className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
+                                className="rounded-2xl border border-white/10 bg-slate-900/60 p-5 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
                             >
                                 <h3 className="text-lg font-semibold">
                                     {capability.title}
@@ -875,15 +658,16 @@ export default function Home() {
                         </p>
 
                         <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-                            Reduce buyer risk with clearer quality signals.
+                            Quality expectations should be clear before
+                            production begins.
                         </h2>
 
                         <p className="mt-5 text-sm leading-7 text-slate-300 sm:text-base">
-                            For aerospace, defense, medical, and semiconductor
-                            buyers, quality is not a nice-to-have. A stronger
-                            website should make certification, inspection, and
-                            production discipline easy to understand before the
-                            first quote request.
+                            For high-requirement industries, quality is part of
+                            the manufacturing conversation from the start.
+                            Sparton helps teams align around drawings,
+                            tolerances, inspection needs, and documentation
+                            before work moves into production.
                         </p>
                     </div>
 
@@ -905,7 +689,7 @@ export default function Home() {
 
             <section
                 id="process"
-                className="mx-auto max-w-6xl px-6 py-20 text-left"
+                className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-left"
             >
                 <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
                     RFQ journey
@@ -914,15 +698,15 @@ export default function Home() {
                 <div className="mt-4 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
                     <div>
                         <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                            A clearer path from first visit to qualified
-                            inquiry.
+                            Start with the details that help a quote move
+                            faster.
                         </h2>
 
-                        <p className="mt-5 text-sm leading-7 text-slate-300 sm:text-base">
-                            This concept gives engineering and procurement
-                            buyers a simple route to submit requirements,
-                            understand capabilities, and start a serious quoting
-                            conversation.
+                        <p className="mt-5 text-sm leading-7 text-slate-600 sm:text-base">
+                            Share drawings, materials, quantities, tolerances,
+                            timelines, and quality requirements so our team can
+                            review your project with the right context from the
+                            start.
                         </p>
                     </div>
 
@@ -947,7 +731,10 @@ export default function Home() {
                 </div>
             </section>
 
-            <section id="rfq" className="mx-auto max-w-6xl px-6 py-20">
+            <section
+                id="rfq"
+                className="relative z-10 mx-auto max-w-6xl px-6 py-20"
+            >
                 <div className="grid gap-6 rounded-3xl border border-white/10 bg-white p-6 text-slate-950 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
                     <div>
                         <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
@@ -990,6 +777,8 @@ export default function Home() {
                             <label className="grid gap-2 text-sm font-medium">
                                 Name
                                 <input
+                                    name="name"
+                                    type="text"
                                     className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-500"
                                     placeholder="Jane Smith"
                                 />
@@ -998,14 +787,18 @@ export default function Home() {
                             <label className="grid gap-2 text-sm font-medium">
                                 Company
                                 <input
+                                    name="company"
+                                    type="text"
                                     className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-500"
                                     placeholder="Acme Aerospace"
                                 />
                             </label>
 
-                            <label className="grid gap-2 text-sm font-medium sm:col-span-2">
+                            <label className="grid gap-2 text-sm font-medium md:col-span-2">
                                 Work email
                                 <input
+                                    name="email"
+                                    type="email"
                                     className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-500"
                                     placeholder="jane@company.com"
                                 />
@@ -1033,7 +826,7 @@ export default function Home() {
                                 </select>
                             </label>
 
-                            <label className="grid gap-2 text-sm font-medium sm:col-span-2">
+                            <label className="grid gap-2 text-sm font-medium md:col-span-2">
                                 Project details
                                 <textarea
                                     className="min-h-32 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-500"
@@ -1043,7 +836,7 @@ export default function Home() {
                         </div>
 
                         <button className="mt-6 w-full rounded-xl bg-slate-950 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-slate-800">
-                            Submit RFQ request
+                            Request a manufacturing quote{" "}
                         </button>
 
                         <p className="mt-4 text-center text-xs leading-5 text-slate-500">
@@ -1052,12 +845,14 @@ export default function Home() {
                         </p>
                     </div>
                 </div>
+            </section>
 
-                <p className="mt-8 text-center text-xs leading-6 text-slate-500">
+            <footer className="relative z-10 border-t border-white/10 px-6 py-8 text-center text-xs leading-6 text-slate-500">
+                <p>
                     Unofficial redesign concept created for portfolio practice.
                     Not affiliated with Sparton Technology Corporation.
                 </p>
-            </section>
+            </footer>
         </main>
     );
 }
