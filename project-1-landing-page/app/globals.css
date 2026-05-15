@@ -24,3 +24,79 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+@keyframes easeInFromTop {
+  from {
+    opacity: 0;
+    transform: translateY(-24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes easeInFromLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes easeInFromRight {
+  from {
+    opacity: 0;
+    transform: translateX(32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes easeInFromBottom {
+  from {
+    opacity: 0;
+    transform: translateY(32px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-ease-in-top {
+  animation: easeInFromTop 700ms ease-out both;
+}
+
+.animate-ease-in-left {
+  animation: easeInFromLeft 800ms ease-out both;
+}
+
+.animate-ease-in-right {
+  animation: easeInFromRight 800ms ease-out both;
+}
+
+.animate-ease-in-bottom {
+  animation: easeInFromBottom 800ms ease-out both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+
+  .animate-ease-in-top,
+  .animate-ease-in-left,
+  .animate-ease-in-right,
+  .animate-ease-in-bottom {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
