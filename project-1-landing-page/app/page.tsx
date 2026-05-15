@@ -323,6 +323,30 @@ export default function Home() {
         ? "border-slate-200 bg-white text-slate-950 placeholder:text-slate-400 focus:border-slate-500"
         : "border-white/10 bg-slate-900 text-white placeholder:text-slate-500 focus:border-cyan-300";
 
+    const funnelConnectorClass = isLightMode
+        ? "border-slate-200 bg-white/80 text-slate-700 shadow-lg shadow-slate-950/5"
+        : "border-white/10 bg-slate-950/60 text-slate-300 shadow-lg shadow-black/20";
+
+    const funnelArrowClass = isLightMode
+        ? "bg-cyan-700 text-white"
+        : "bg-cyan-300 text-slate-950";
+
+    const renderFunnelConnector = (label: string) => (
+        <div className="relative z-10 mx-auto mt-8 flex max-w-6xl justify-center px-6">
+            <div
+                className={`inline-flex items-center gap-3 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] backdrop-blur transition ${funnelConnectorClass}`}
+            >
+                <span>{label}</span>
+                <span
+                    aria-hidden="true"
+                    className={`grid h-7 w-7 place-items-center rounded-full ${funnelArrowClass}`}
+                >
+                    ↓
+                </span>
+            </div>
+        </div>
+    );
+
     const [hasScrolled, setHasScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const solutionsRef = useRef<HTMLElement | null>(null);
@@ -336,13 +360,10 @@ export default function Home() {
 
         const observer = new IntersectionObserver(
             ([entry]) => {
-                if (entry.isIntersecting) {
-                    setHasSeenSolutions(true);
-                    observer.disconnect();
-                }
+                setHasSeenSolutions(entry.isIntersecting);
             },
             {
-                threshold: 0.25,
+                threshold: 0.15,
             },
         );
 
@@ -409,12 +430,12 @@ export default function Home() {
         },
     ];
     const quoteRequirements = [
-    "Part drawings, CAD files, or prints",
-    "Material, finish, and tolerance requirements",
-    "Estimated quantities or production volume",
-    "Target timeline or delivery window",
-    "Inspection, certification, or documentation needs",
-];
+        "Part drawings, CAD files, or prints",
+        "Material, finish, and tolerance requirements",
+        "Estimated quantities or production volume",
+        "Target timeline or delivery window",
+        "Inspection, certification, or documentation needs",
+    ];
 
     const capabilities = [
         {
@@ -685,10 +706,6 @@ export default function Home() {
                 />
                 <CinematicHero />
                 <div className="relative">
-                    <div className="pointer-events-none absolute left-6 top-10 bottom-10 z-0 hidden w-px bg-gradient-to-b from-cyan-300/0 via-cyan-300/40 to-cyan-300/0 md:block lg:left-1/2" />
-
-                    <div className="pointer-events-none absolute left-6 top-10 z-0 hidden h-40 w-px bg-cyan-300/80 blur-sm md:block lg:left-1/2" />
-
                     <section
                         ref={solutionsRef}
                         id="solutions"
@@ -741,11 +758,12 @@ export default function Home() {
                             </p>
                         </div>
 
-                        <div className="grid gap-5 md:grid-cols-3">
+                        <div className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-6 [scrollbar-width:none] [-ms-overflow-style:none] sm:-mx-6 sm:px-6 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
+                            {" "}
                             {solutionCards.map((card, index) => (
                                 <article
                                     key={card.id}
-                                    className={`group relative min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900 shadow-2xl shadow-black/30 transition duration-300 hover:-translate-y-2 hover:border-cyan-300/40 ${
+                                    className={`group relative min-h-[420px] w-[82vw] shrink-0 snap-center overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900 shadow-2xl shadow-black/30 transition duration-300 hover:-translate-y-2 hover:border-cyan-300/40 sm:w-[420px] md:min-h-[460px] md:w-auto md:shrink ${
                                         hasSeenSolutions
                                             ? "animate-ease-in-bottom"
                                             : "opacity-0"
@@ -795,7 +813,19 @@ export default function Home() {
                                 </article>
                             ))}
                         </div>
+                        <p
+                            className={`mt-2 text-center text-xs font-semibold uppercase tracking-[0.18em] md:hidden ${
+                                isLightMode
+                                    ? "text-slate-500"
+                                    : "text-slate-400"
+                            }`}
+                        >
+                            Swipe to explore services
+                        </p>
                     </section>
+
+                    {renderFunnelConnector("Next: confirm manufacturing fit")}
+
                     <section
                         id="capabilities"
                         className="relative z-10 mx-auto max-w-6xl px-6 py-24 text-left"
@@ -877,6 +907,9 @@ export default function Home() {
                             </div>
                         </div>
                     </section>
+
+                    {renderFunnelConnector("Next: review capability depth")}
+
                     <section className="relative z-10 mx-auto max-w-6xl px-6 py-12 text-left">
                         <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
                             <div>
@@ -952,6 +985,9 @@ export default function Home() {
                             </div>
                         </div>
                     </section>
+
+                    {renderFunnelConnector("Next: see where this work matters")}
+
                     <section
                         id="industries"
                         className="relative z-10 mx-auto max-w-6xl px-6 py-12"
@@ -994,6 +1030,9 @@ export default function Home() {
                             </div>
                         </div>
                     </section>
+
+                    {renderFunnelConnector("Next: reduce production risk")}
+
                     <section className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-left">
                         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
                             <div>
@@ -1045,6 +1084,9 @@ export default function Home() {
                             </div>
                         </div>
                     </section>
+
+                    {renderFunnelConnector("Next: prepare the quote request")}
+
                     <section
                         id="process"
                         className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-left"
@@ -1101,6 +1143,11 @@ export default function Home() {
                             </div>
                         </div>
                     </section>
+
+                    {renderFunnelConnector(
+                        "Final step: send the project details",
+                    )}
+
                     <section
                         id="rfq"
                         className="relative z-10 mx-auto max-w-6xl px-6 py-24"
@@ -1113,12 +1160,19 @@ export default function Home() {
                             }`}
                         />
                         <div
-                            className={`grid gap-6 rounded-3xl border p-6 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10 ${
+                            className={`relative grid gap-6 overflow-hidden rounded-3xl border p-6 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10 ${
                                 isLightMode
-                                    ? "border-slate-200 bg-white text-slate-950 shadow-2xl shadow-slate-950/5"
-                                    : "border-white/10 bg-slate-900 text-white shadow-2xl shadow-black/20"
+                                    ? "border-cyan-700/20 bg-white text-slate-950 shadow-2xl shadow-cyan-900/10"
+                                    : "border-cyan-300/20 bg-slate-900 text-white shadow-2xl shadow-cyan-300/10"
                             }`}
                         >
+                            <div
+                                className={`pointer-events-none absolute left-1/2 top-0 h-40 w-40 -translate-x-1/2 -translate-y-1/2 rounded-full blur-3xl ${
+                                    isLightMode
+                                        ? "bg-cyan-300/30"
+                                        : "bg-cyan-300/20"
+                                }`}
+                            />
                             <div>
                                 <div className="flex items-center gap-3">
                                     <span
@@ -1256,8 +1310,36 @@ export default function Home() {
                                     </label>
                                 </div>
 
-                                <button className="mt-6 w-full rounded-xl bg-slate-950 px-6 py-4 text-sm font-semibold text-white shadow-lg shadow-slate-950/20 transition hover:-translate-y-0.5 hover:bg-slate-800">
-                                    Send project details{" "}
+                                <button
+                                    type="button"
+                                    className={`group mt-6 flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left shadow-2xl transition hover:-translate-y-0.5 active:scale-[0.98] sm:px-6 sm:py-5 ${
+                                        isLightMode
+                                            ? "bg-slate-950 text-white shadow-slate-950/20 hover:bg-slate-800"
+                                            : "bg-cyan-300 text-slate-950 shadow-cyan-300/25 hover:bg-cyan-200"
+                                    }`}
+                                >
+                                    <span>
+                                        <span className="block text-sm font-black uppercase tracking-[0.16em] sm:text-base">
+                                            Send drawings for review
+                                        </span>
+                                        <span
+                                            className={`mt-1 block text-xs font-semibold normal-case tracking-normal ${
+                                                isLightMode
+                                                    ? "text-slate-300"
+                                                    : "text-slate-700"
+                                            }`}
+                                        >
+                                            Share your specs and we’ll review
+                                            the quote path.
+                                        </span>
+                                    </span>
+
+                                    <span
+                                        aria-hidden="true"
+                                        className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/30 text-lg transition group-hover:translate-x-1"
+                                    >
+                                        →
+                                    </span>
                                 </button>
 
                                 <p className="mt-4 text-center text-xs leading-5 text-slate-500">
