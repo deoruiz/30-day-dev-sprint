@@ -567,7 +567,11 @@ export default function Home() {
                     <div className="hidden items-center gap-6 md:flex">
                         <a
                             href="#"
-                            className="text-sm font-medium text-white/85 drop-shadow transition hover:text-white"
+                            className={`text-sm font-medium drop-shadow transition ${
+                                hasScrolled && isLightMode
+                                    ? "text-slate-700 hover:text-slate-950"
+                                    : "text-white/85 hover:text-white"
+                            }`}
                         >
                             Home
                         </a>
@@ -739,7 +743,7 @@ export default function Home() {
             <main
                 className={`relative min-h-screen overflow-x-hidden transition duration-300 ${
                     isLightMode
-                        ? "bg-slate-100 text-slate-950"
+                        ? "bg-[#eef1f4] text-slate-950"
                         : "bg-slate-950 text-white"
                 }`}
             >
@@ -757,7 +761,7 @@ export default function Home() {
                 <div
                     className={`pointer-events-none absolute inset-0 bg-[size:48px_48px] ${
                         isLightMode
-                            ? "bg-[linear-gradient(to_right,rgba(15,23,42,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.055)_1px,transparent_1px)]"
+                            ? "bg-[linear-gradient(to_right,rgba(51,65,85,0.045)_1px,transparent_1px),linear-gradient(to_bottom,rgba(51,65,85,0.045)_1px,transparent_1px)]"
                             : "bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)]"
                     }`}
                 />
@@ -1433,31 +1437,83 @@ export default function Home() {
 
                                     <label className="grid min-w-0 gap-2 text-sm font-medium">
                                         Service needed
-                                        <select
-                                            className={`min-w-0 w-full rounded-xl border px-4 py-3 pr-10 text-sm outline-none transition ${formInputClass}`}
-                                        >
-                                            <option>CNC machining</option>
-                                            <option>
-                                                Sheet metal fabrication
-                                            </option>
-                                            <option>Assembly support</option>
-                                            <option>
-                                                Quality / production
-                                                consultation
-                                            </option>
-                                        </select>
+                                        <div className="relative min-w-0">
+                                            <select
+                                                className={`min-w-0 w-full appearance-none rounded-xl border py-3 pl-4 pr-14 text-sm outline-none transition ${formInputClass}`}
+                                            >
+                                                <option>CNC machining</option>
+                                                <option>
+                                                    Sheet metal fabrication
+                                                </option>
+                                                <option>
+                                                    Assembly support
+                                                </option>
+                                                <option>
+                                                    Quality / production
+                                                    consultation
+                                                </option>
+                                            </select>
+
+                                            <span
+                                                aria-hidden="true"
+                                                className={`pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 ${
+                                                    isLightMode
+                                                        ? "text-slate-500"
+                                                        : "text-slate-300"
+                                                }`}
+                                            >
+                                                <svg
+                                                    viewBox="0 0 20 20"
+                                                    fill="none"
+                                                    className="h-4 w-4"
+                                                >
+                                                    <path
+                                                        d="M5 7.5L10 12.5L15 7.5"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.8"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+                                            </span>
+                                        </div>
                                     </label>
 
                                     <label className="grid min-w-0 gap-2 text-sm font-medium">
                                         Timeline
-                                        <select
-                                            className={`min-w-0 w-full rounded-xl border px-4 py-3 pr-10 text-sm outline-none transition ${formInputClass}`}
-                                        >
-                                            <option>ASAP</option>
-                                            <option>2–4 weeks</option>
-                                            <option>1–3 months</option>
-                                            <option>Planning ahead</option>
-                                        </select>
+                                        <div className="relative min-w-0">
+                                            <select
+                                                className={`min-w-0 w-full appearance-none rounded-xl border py-3 pl-4 pr-14 text-sm outline-none transition ${formInputClass}`}
+                                            >
+                                                <option>ASAP</option>
+                                                <option>2–4 weeks</option>
+                                                <option>1–3 months</option>
+                                                <option>Planning ahead</option>
+                                            </select>
+
+                                            <span
+                                                aria-hidden="true"
+                                                className={`pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 ${
+                                                    isLightMode
+                                                        ? "text-slate-500"
+                                                        : "text-slate-300"
+                                                }`}
+                                            >
+                                                <svg
+                                                    viewBox="0 0 20 20"
+                                                    fill="none"
+                                                    className="h-4 w-4"
+                                                >
+                                                    <path
+                                                        d="M5 7.5L10 12.5L15 7.5"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.8"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
+                                            </span>
+                                        </div>
                                     </label>
 
                                     <label className="grid gap-2 text-sm font-medium md:col-span-2">
