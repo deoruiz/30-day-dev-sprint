@@ -351,6 +351,8 @@ export default function Home() {
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const solutionsRef = useRef<HTMLElement | null>(null);
     const [hasSeenSolutions, setHasSeenSolutions] = useState(false);
+    const solutionsCarouselRef = useRef<HTMLDivElement | null>(null);
+    const [activeSolutionIndex, setActiveSolutionIndex] = useState(0);
     useEffect(() => {
         const section = solutionsRef.current;
 
@@ -492,6 +494,33 @@ export default function Home() {
                 "Your team receives a quote path shaped around the scope, requirements, timeline, and production needs of the project.",
         },
     ];
+
+    const handleSolutionsCarouselScroll = () => {
+        const carousel = solutionsCarouselRef.current;
+
+        if (!carousel) {
+            return;
+        }
+
+        const cards = Array.from(carousel.children);
+        const carouselCenter = carousel.scrollLeft + carousel.clientWidth / 2;
+
+        let closestIndex = 0;
+        let closestDistance = Number.POSITIVE_INFINITY;
+
+        cards.forEach((card, index) => {
+            const element = card as HTMLElement;
+            const cardCenter = element.offsetLeft + element.offsetWidth / 2;
+            const distance = Math.abs(carouselCenter - cardCenter);
+
+            if (distance < closestDistance) {
+                closestDistance = distance;
+                closestIndex = index;
+            }
+        });
+
+        setActiveSolutionIndex(closestIndex);
+    };
 
     return (
         <>
@@ -758,12 +787,71 @@ export default function Home() {
                             </p>
                         </div>
 
-                        <div className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-6 [scrollbar-width:none] [-ms-overflow-style:none] sm:-mx-6 sm:px-6 md:mx-0 md:grid md:grid-cols-3 md:overflow-visible md:px-0 md:pb-0">
+                        <div
+                            ref={solutionsCarouselRef}
+                            onScroll={handleSolutionsCarouselScroll}
+                            className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-6 [scrollbar-width:none] [-ms-overflow-style:none] sm:-mx-6 sm:px-6 md:hidden"
+                        >
                             {" "}
                             {solutionCards.map((card, index) => (
                                 <article
                                     key={card.id}
-                                    className={`group relative min-h-[420px] w-[82vw] shrink-0 snap-center overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900 shadow-2xl shadow-black/30 transition duration-300 hover:-translate-y-2 hover:border-cyan-300/40 sm:w-[420px] md:min-h-[460px] md:w-auto md:shrink ${
+                                    className={`group relative min-h-[420px] w-[84vw] shrink-0 snap-center overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900 shadow-2xl shadow-black/30 transition duration-300 hover:border-cyan-300/40 sm:w-[420px] ${
+                                        hasSeenSolutions
+                                            ? "animate-ease-in-bottom"
+                                            : "opacity-0"
+                                    }`}
+                                    style={{
+                                        animationDelay: hasSeenSolutions
+                                            ? `${(index % solutionCards.length) * 120}ms`
+                                            : "0ms",
+                                    }}
+                                >
+                                    <div
+                                        className="absolute inset-0 scale-100 bg-cover bg-center transition duration-700 group-hover:scale-110"
+                                        style={{
+                                            backgroundImage: `url(${card.image})`,
+                                        }}
+                                    />
+
+                                    <div className="absolute inset-0 bg-gradient-to-b from-slate-950/20 via-slate-950/30 to-slate-950/95" />
+                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_20%,rgba(34,211,238,0.22),transparent_32%)] opacity-0 transition duration-500 group-hover:opacity-100" />
+
+                                    <div className="absolute left-5 top-5 flex items-center gap-2 rounded-full border border-white/15 bg-slate-950/45 px-3 py-2 text-xs font-semibold text-white backdrop-blur">
+                                        <span className="h-2 w-2 rounded-full bg-cyan-300 shadow-[0_0_16px_rgba(103,232,249,0.9)]" />
+                                        {card.status}
+                                    </div>
+
+                                    <div className="absolute bottom-0 left-0 right-0 p-5 sm:p-6">
+                                        <div className="mb-4 inline-flex rounded-full border border-white/10 bg-white/10 px-3 py-1 text-xs font-semibold uppercase tracking-[0.18em] text-cyan-100 backdrop-blur">
+                                            {card.metric}
+                                        </div>
+
+                                        <h3 className="text-2xl font-black uppercase tracking-tight text-white">
+                                            {card.title}
+                                        </h3>
+
+                                        <p className="mt-4 text-sm leading-6 text-slate-300">
+                                            {card.description}
+                                        </p>
+
+                                        <a
+                                            href="#rfq"
+                                            className="mt-6 inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white backdrop-blur transition hover:bg-cyan-300 hover:text-slate-950"
+                                        >
+                                            Discuss this service
+                                            <span aria-hidden="true">→</span>
+                                        </a>
+                                    </div>
+                                </article>
+                            ))}
+                        </div>
+
+                        <div className="hidden gap-5 md:grid md:grid-cols-3">
+                            {solutionCards.map((card, index) => (
+                                <article
+                                    key={card.id}
+                                    className={`group relative min-h-[460px] overflow-hidden rounded-[2rem] border border-white/10 bg-slate-900 shadow-2xl shadow-black/30 transition duration-300 hover:-translate-y-2 hover:border-cyan-300/40 ${
                                         hasSeenSolutions
                                             ? "animate-ease-in-bottom"
                                             : "opacity-0"
@@ -820,8 +908,29 @@ export default function Home() {
                                     : "text-slate-400"
                             }`}
                         >
-                            Swipe to explore services
+                            Swipe through 3 core services
                         </p>
+
+                        <div className="mt-3 flex justify-center gap-2 md:hidden">
+                            {solutionCards.map((card, index) => (
+                                <span
+                                    key={`${card.id}-dot`}
+                                    className={`h-1.5 rounded-full transition-all duration-300 ${
+                                        index === activeSolutionIndex
+                                            ? "w-8"
+                                            : "w-3"
+                                    } ${
+                                        index === activeSolutionIndex
+                                            ? isLightMode
+                                                ? "bg-cyan-700"
+                                                : "bg-cyan-300"
+                                            : isLightMode
+                                              ? "bg-slate-300"
+                                              : "bg-white/20"
+                                    }`}
+                                />
+                            ))}
+                        </div>
                     </section>
 
                     {renderFunnelConnector("Next: confirm manufacturing fit")}
