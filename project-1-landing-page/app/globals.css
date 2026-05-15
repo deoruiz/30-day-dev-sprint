@@ -100,3 +100,38 @@ body {
     transform: none;
   }
 }
+
+@keyframes premiumGlow {
+  0% {
+    opacity: 0.35;
+    transform: translateX(-18%) scale(1);
+  }
+
+  50% {
+    opacity: 0.85;
+    transform: translateX(18%) scale(1.04);
+  }
+
+  100% {
+    opacity: 0.35;
+    transform: translateX(-18%) scale(1);
+  }
+}
+
+.animate-premium-glow {
+  animation: premiumGlow 5.5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-premium-glow {
+    animation: none;
+  }
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+section {
+  scroll-margin-top: 112px;
+}

@@ -284,6 +284,19 @@ export default function Home() {
         );
     };
 
+    const scrollToSection = (sectionId: string) => {
+        const section = document.querySelector(sectionId);
+
+        if (!section) {
+            return;
+        }
+
+        section.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+        });
+    };
+
     const themeToggleButton = (
         <button
             type="button"
@@ -324,25 +337,40 @@ export default function Home() {
         : "border-white/10 bg-slate-900 text-white placeholder:text-slate-500 focus:border-cyan-300";
 
     const funnelConnectorClass = isLightMode
-        ? "border-slate-200 bg-white/80 text-slate-700 shadow-lg shadow-slate-950/5"
-        : "border-white/10 bg-slate-950/60 text-slate-300 shadow-lg shadow-black/20";
+        ? "border-cyan-700/20 bg-white/85 text-slate-700 shadow-lg shadow-cyan-900/10"
+        : "border-cyan-300/20 bg-slate-950/65 text-slate-300 shadow-lg shadow-cyan-300/10";
 
     const funnelArrowClass = isLightMode
-        ? "bg-cyan-700 text-white"
-        : "bg-cyan-300 text-slate-950";
+        ? "bg-cyan-700 text-white shadow-cyan-700/30 hover:bg-cyan-800"
+        : "bg-cyan-300 text-slate-950 shadow-cyan-300/30 hover:bg-cyan-200";
 
-    const renderFunnelConnector = (label: string) => (
+    const renderFunnelConnector = (label: string, href: string) => (
         <div className="relative z-10 mx-auto mt-8 flex max-w-6xl justify-center px-6">
             <div
-                className={`inline-flex items-center gap-3 rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] backdrop-blur transition ${funnelConnectorClass}`}
+                className={`relative inline-flex items-center gap-3 overflow-hidden rounded-full border px-4 py-2 text-xs font-bold uppercase tracking-[0.16em] backdrop-blur transition ${funnelConnectorClass}`}
             >
-                <span>{label}</span>
                 <span
-                    aria-hidden="true"
-                    className={`grid h-7 w-7 place-items-center rounded-full ${funnelArrowClass}`}
+                    className={`pointer-events-none absolute inset-0 animate-premium-glow rounded-full ${
+                        isLightMode
+                            ? "bg-[radial-gradient(circle_at_30%_50%,rgba(8,145,178,0.22),transparent_34%),radial-gradient(circle_at_80%_50%,rgba(14,116,144,0.16),transparent_30%)]"
+                            : "bg-[radial-gradient(circle_at_30%_50%,rgba(103,232,249,0.22),transparent_34%),radial-gradient(circle_at_80%_50%,rgba(34,211,238,0.14),transparent_30%)]"
+                    }`}
+                />
+
+                <span className="relative z-10">{label}</span>
+
+                <button
+                    type="button"
+                    onClick={() => scrollToSection(href)}
+                    className={`relative z-10 grid h-8 w-8 place-items-center rounded-full shadow-lg transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 ${
+                        isLightMode
+                            ? "focus:ring-offset-white"
+                            : "focus:ring-offset-slate-950"
+                    } ${funnelArrowClass}`}
+                    aria-label={`Jump to ${label.replace("Next: ", "").replace("Final step: ", "")}`}
                 >
                     ↓
-                </span>
+                </button>
             </div>
         </div>
     );
@@ -933,7 +961,10 @@ export default function Home() {
                         </div>
                     </section>
 
-                    {renderFunnelConnector("Next: confirm manufacturing fit")}
+                    {renderFunnelConnector(
+                        "Next: confirm manufacturing fit",
+                        "#capabilities",
+                    )}
 
                     <section
                         id="capabilities"
@@ -1017,9 +1048,15 @@ export default function Home() {
                         </div>
                     </section>
 
-                    {renderFunnelConnector("Next: review capability depth")}
+                    {renderFunnelConnector(
+                        "Next: review capability depth",
+                        "#about",
+                    )}
 
-                    <section className="relative z-10 mx-auto max-w-6xl px-6 py-12 text-left">
+                    <section
+                        id="about"
+                        className="relative z-10 mx-auto max-w-6xl px-6 py-12 text-left"
+                    >
                         <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
                             <div>
                                 <div className="flex items-center gap-3">
@@ -1095,7 +1132,10 @@ export default function Home() {
                         </div>
                     </section>
 
-                    {renderFunnelConnector("Next: see where this work matters")}
+                    {renderFunnelConnector(
+                        "Next: see where this work matters",
+                        "#industries",
+                    )}
 
                     <section
                         id="industries"
@@ -1140,9 +1180,15 @@ export default function Home() {
                         </div>
                     </section>
 
-                    {renderFunnelConnector("Next: reduce production risk")}
+                    {renderFunnelConnector(
+                        "Next: reduce production risk",
+                        "#quality",
+                    )}
 
-                    <section className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-left">
+                    <section
+                        id="quality"
+                        className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-left"
+                    >
                         <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
                             <div>
                                 <div className="flex items-center gap-3">
@@ -1194,7 +1240,10 @@ export default function Home() {
                         </div>
                     </section>
 
-                    {renderFunnelConnector("Next: prepare the quote request")}
+                    {renderFunnelConnector(
+                        "Next: prepare the quote request",
+                        "#process",
+                    )}
 
                     <section
                         id="process"
@@ -1255,6 +1304,7 @@ export default function Home() {
 
                     {renderFunnelConnector(
                         "Final step: send the project details",
+                        "#rfq",
                     )}
 
                     <section
