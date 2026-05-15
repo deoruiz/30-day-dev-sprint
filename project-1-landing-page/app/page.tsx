@@ -299,6 +299,30 @@ export default function Home() {
         </button>
     );
 
+    const sectionHeadingClass = isLightMode ? "text-slate-950" : "text-white";
+    const sectionBodyClass = isLightMode ? "text-slate-600" : "text-slate-300";
+    const mutedBodyClass = isLightMode ? "text-slate-600" : "text-slate-400";
+
+    const standardCardClass = isLightMode
+        ? "border-slate-200 bg-white text-slate-950 shadow-lg shadow-slate-950/5 hover:border-slate-300"
+        : "border-white/10 bg-white/5 text-white hover:border-white/20 hover:bg-white/10";
+
+    const deepCardClass = isLightMode
+        ? "border-slate-200 bg-white text-slate-950 shadow-lg shadow-slate-950/5 hover:border-slate-300"
+        : "border-white/10 bg-slate-900/60 text-white hover:border-white/20 hover:bg-white/10";
+
+    const innerPanelClass = isLightMode
+        ? "bg-slate-100 text-slate-600"
+        : "bg-slate-900/70 text-slate-300";
+
+    const sectionBorderClass = isLightMode
+        ? "border-slate-200"
+        : "border-white/10";
+
+    const formInputClass = isLightMode
+        ? "border-slate-200 bg-white text-slate-950 placeholder:text-slate-400 focus:border-slate-500"
+        : "border-white/10 bg-slate-900 text-white placeholder:text-slate-500 focus:border-cyan-300";
+
     const [hasScrolled, setHasScrolled] = useState(false);
     const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
     const solutionsRef = useRef<HTMLElement | null>(null);
@@ -642,9 +666,23 @@ export default function Home() {
                 }`}
             >
                 {" "}
-                <div className="pointer-events-none absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full bg-cyan-500/20 blur-3xl" />
-                <div className="pointer-events-none absolute right-0 top-1/3 h-80 w-80 rounded-full bg-blue-500/10 blur-3xl" />
-                <div className="pointer-events-none absolute inset-0 bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)] bg-[size:48px_48px]" />
+                <div
+                    className={`pointer-events-none absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full blur-3xl ${
+                        isLightMode ? "bg-cyan-300/30" : "bg-cyan-500/20"
+                    }`}
+                />
+                <div
+                    className={`pointer-events-none absolute right-0 top-1/3 h-80 w-80 rounded-full blur-3xl ${
+                        isLightMode ? "bg-blue-300/20" : "bg-blue-500/10"
+                    }`}
+                />
+                <div
+                    className={`pointer-events-none absolute inset-0 bg-[size:48px_48px] ${
+                        isLightMode
+                            ? "bg-[linear-gradient(to_right,rgba(15,23,42,0.055)_1px,transparent_1px),linear-gradient(to_bottom,rgba(15,23,42,0.055)_1px,transparent_1px)]"
+                            : "bg-[linear-gradient(to_right,rgba(255,255,255,0.04)_1px,transparent_1px),linear-gradient(to_bottom,rgba(255,255,255,0.04)_1px,transparent_1px)]"
+                    }`}
+                />
                 <CinematicHero />
                 <section
                     ref={solutionsRef}
@@ -665,9 +703,7 @@ export default function Home() {
 
                             <h2
                                 className={`mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl ${
-                                    isLightMode
-                                        ? "text-slate-950"
-                                        : "text-white"
+                                    sectionHeadingClass
                                 } ${hasSeenSolutions ? "animate-ease-in-left" : "opacity-0"}`}
                             >
                                 Manufacturing capabilities built around serious
@@ -758,7 +794,9 @@ export default function Home() {
                                 finished component.
                             </h2>
 
-                            <p className="mt-5 max-w-2xl text-base leading-8 text-slate-300">
+                            <p
+                                className={`mt-5 max-w-2xl text-base leading-8 ${sectionBodyClass}`}
+                            >
                                 Sparton Technology brings machining,
                                 fabrication, assembly, and quality support into
                                 one coordinated production environment, helping
@@ -766,7 +804,13 @@ export default function Home() {
                                 handoffs and clearer accountability.
                             </p>
 
-                            <div className="mt-10 rounded-3xl border border-white/10 bg-white p-8 text-slate-950 shadow-2xl shadow-black/20">
+                            <div
+                                className={`mt-10 rounded-3xl border p-8 shadow-2xl ${
+                                    isLightMode
+                                        ? "border-slate-200 bg-white text-slate-950 shadow-slate-950/10"
+                                        : "border-white/10 bg-white text-slate-950 shadow-black/20"
+                                }`}
+                            >
                                 <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
                                     Integrated production
                                 </p>
@@ -790,12 +834,14 @@ export default function Home() {
                             {capabilities.map((capability) => (
                                 <div
                                     key={capability.id}
-                                    className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
+                                    className={`rounded-2xl border p-6 transition hover:-translate-y-1 ${standardCardClass}`}
                                 >
                                     <h3 className="font-semibold">
                                         {capability.title}
                                     </h3>
-                                    <p className="mt-3 text-sm leading-6 text-slate-400">
+                                    <p
+                                        className={`mt-3 text-sm leading-6 ${mutedBodyClass}`}
+                                    >
                                         {capability.description}
                                     </p>
                                 </div>
@@ -815,7 +861,9 @@ export default function Home() {
                                 single-process supplier.
                             </h2>
 
-                            <p className="mt-5 text-sm leading-7 text-slate-300 sm:text-base">
+                            <p
+                                className={`mt-5 text-sm leading-7 sm:text-base ${sectionBodyClass}`}
+                            >
                                 Sparton supports technical teams that need
                                 manufacturing flexibility, quality discipline,
                                 and a partner who can understand the full path
@@ -827,27 +875,36 @@ export default function Home() {
                             {capabilityDetails.map((capability) => (
                                 <div
                                     key={capability.id}
-                                    className="rounded-2xl border border-white/10 bg-slate-900/60 p-5 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
+                                    className={`rounded-2xl border p-5 transition hover:-translate-y-1 ${deepCardClass}`}
                                 >
                                     <h3 className="text-lg font-semibold">
                                         {capability.title}
                                     </h3>
 
                                     <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                                        <div className="rounded-2xl bg-slate-900/70 p-4">
+                                        <div
+                                            className={`rounded-2xl p-4 ${innerPanelClass}`}
+                                        >
+                                            {" "}
                                             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
                                                 Best for
                                             </p>
-                                            <p className="mt-2 text-sm leading-6 text-slate-300">
+                                            <p
+                                                className={`mt-2 text-sm leading-6 ${sectionBodyClass}`}
+                                            >
                                                 {capability.bestFor}
                                             </p>
                                         </div>
 
-                                        <div className="rounded-2xl bg-slate-900/70 p-4">
+                                        <div
+                                            className={`rounded-2xl p-4 ${innerPanelClass}`}
+                                        >
                                             <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
                                                 Buyer confidence
                                             </p>
-                                            <p className="mt-2 text-sm leading-6 text-slate-300">
+                                            <p
+                                                className={`mt-2 text-sm leading-6 ${sectionBodyClass}`}
+                                            >
                                                 {capability.confidence}
                                             </p>
                                         </div>
@@ -861,7 +918,9 @@ export default function Home() {
                     id="industries"
                     className="relative z-10 mx-auto max-w-6xl px-6 py-12"
                 >
-                    <div className="flex flex-col gap-6 border-y border-white/10 py-10 lg:flex-row lg:items-center lg:justify-between">
+                    <div
+                        className={`flex flex-col gap-6 border-y py-10 lg:flex-row lg:items-center lg:justify-between ${sectionBorderClass}`}
+                    >
                         <div className="max-w-xl text-left">
                             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
                                 Industries served
@@ -875,7 +934,11 @@ export default function Home() {
                             {industries.map((industry) => (
                                 <span
                                     key={industry}
-                                    className="rounded-full border border-white/10 bg-white/5 px-4 py-2 text-sm text-slate-300"
+                                    className={`rounded-full border px-4 py-2 text-sm ${
+                                        isLightMode
+                                            ? "border-slate-200 bg-white text-slate-700"
+                                            : "border-white/10 bg-white/5 text-slate-300"
+                                    }`}
                                 >
                                     {industry}
                                 </span>
@@ -895,7 +958,9 @@ export default function Home() {
                                 production begins.
                             </h2>
 
-                            <p className="mt-5 text-sm leading-7 text-slate-300 sm:text-base">
+                            <p
+                                className={`mt-5 text-sm leading-7 sm:text-base ${sectionBodyClass}`}
+                            >
                                 For high-requirement industries, quality is part
                                 of the manufacturing conversation from the
                                 start. Sparton helps teams align around
@@ -908,12 +973,15 @@ export default function Home() {
                             {qualityPoints.map((point) => (
                                 <div
                                     key={point.id}
-                                    className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
+                                    className={`rounded-2xl border p-6 transition hover:-translate-y-1 ${standardCardClass}`}
                                 >
                                     <h3 className="font-semibold">
                                         {point.title}
                                     </h3>
-                                    <p className="mt-3 text-sm leading-6 text-slate-400">
+                                    <p
+                                        className={`mt-3 text-sm leading-6 ${mutedBodyClass}`}
+                                    >
+                                        {" "}
                                         {point.description}
                                     </p>
                                 </div>
@@ -936,7 +1004,9 @@ export default function Home() {
                                 faster.
                             </h2>
 
-                            <p className="mt-5 text-sm leading-7 text-slate-600 sm:text-base">
+                            <p
+                                className={`mt-5 text-sm leading-7 sm:text-base ${sectionBodyClass}`}
+                            >
                                 Share drawings, materials, quantities,
                                 tolerances, timelines, and quality requirements
                                 so our team can review your project with the
@@ -948,7 +1018,7 @@ export default function Home() {
                             {processSteps.map((step) => (
                                 <div
                                     key={step.id}
-                                    className="rounded-2xl border border-white/10 bg-white/5 p-6 transition hover:-translate-y-1 hover:border-white/20 hover:bg-white/10"
+                                    className={`rounded-2xl border p-6 transition hover:-translate-y-1 ${standardCardClass}`}
                                 >
                                     <p className="text-sm font-semibold text-slate-500">
                                         {step.step}
@@ -956,7 +1026,9 @@ export default function Home() {
                                     <h3 className="mt-3 font-semibold">
                                         {step.title}
                                     </h3>
-                                    <p className="mt-3 text-sm leading-6 text-slate-400">
+                                    <p
+                                        className={`mt-3 text-sm leading-6 ${mutedBodyClass}`}
+                                    >
                                         {step.description}
                                     </p>
                                 </div>
@@ -968,7 +1040,13 @@ export default function Home() {
                     id="rfq"
                     className="relative z-10 mx-auto max-w-6xl px-6 py-20"
                 >
-                    <div className="grid gap-6 rounded-3xl border border-white/10 bg-white p-6 text-slate-950 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10">
+                    <div
+                        className={`grid gap-6 rounded-3xl border p-6 sm:p-8 lg:grid-cols-[0.9fr_1.1fr] lg:p-10 ${
+                            isLightMode
+                                ? "border-slate-200 bg-white text-slate-950 shadow-2xl shadow-slate-950/5"
+                                : "border-white/10 bg-slate-900 text-white shadow-2xl shadow-black/20"
+                        }`}
+                    >
                         <div>
                             <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
                                 Request for quote
@@ -979,25 +1057,39 @@ export default function Home() {
                                 quote conversation.
                             </h2>
 
-                            <p className="mt-5 text-sm leading-7 text-slate-600 sm:text-base">
+                            <p
+                                className={`mt-5 text-sm leading-7 sm:text-base ${sectionBodyClass}`}
+                            >
                                 A stronger RFQ section helps engineering and
                                 procurement teams understand what to send before
                                 they reach out, reducing back-and-forth and
                                 improving lead quality.
                             </p>
 
-                            <div className="mt-8 rounded-2xl bg-slate-100 p-5">
+                            <div
+                                className={`mt-8 rounded-2xl p-5 ${
+                                    isLightMode
+                                        ? "bg-slate-100"
+                                        : "bg-slate-950"
+                                }`}
+                            >
+                                {" "}
                                 <p className="font-semibold">
                                     Helpful quote details
                                 </p>
-
                                 <ul className="mt-4 space-y-3">
                                     {quoteRequirements.map((requirement) => (
                                         <li
                                             key={requirement}
-                                            className="flex gap-3 text-sm text-slate-600"
+                                            className={`flex gap-3 text-sm ${sectionBodyClass}`}
                                         >
-                                            <span className="mt-1 h-2 w-2 rounded-full bg-slate-950" />
+                                            <span
+                                                className={`mt-1 h-2 w-2 rounded-full ${
+                                                    isLightMode
+                                                        ? "bg-slate-950"
+                                                        : "bg-cyan-300"
+                                                }`}
+                                            />{" "}
                                             <span>{requirement}</span>
                                         </li>
                                     ))}
@@ -1005,14 +1097,20 @@ export default function Home() {
                             </div>
                         </div>
 
-                        <div className="rounded-2xl border border-slate-200 bg-slate-50 p-5 sm:p-6">
+                        <div
+                            className={`rounded-2xl border p-5 sm:p-6 ${
+                                isLightMode
+                                    ? "border-slate-200 bg-slate-50"
+                                    : "border-white/10 bg-slate-950"
+                            }`}
+                        >
                             <div className="grid gap-4 md:grid-cols-2">
                                 <label className="grid gap-2 text-sm font-medium">
                                     Name
                                     <input
                                         name="name"
                                         type="text"
-                                        className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-500"
+                                        className={`rounded-xl border px-4 py-3 text-sm outline-none transition ${formInputClass}`}
                                         placeholder="Jane Smith"
                                     />
                                 </label>
@@ -1022,7 +1120,7 @@ export default function Home() {
                                     <input
                                         name="company"
                                         type="text"
-                                        className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-500"
+                                        className={`rounded-xl border px-4 py-3 text-sm outline-none transition ${formInputClass}`}
                                         placeholder="Acme Aerospace"
                                     />
                                 </label>
@@ -1032,14 +1130,16 @@ export default function Home() {
                                     <input
                                         name="email"
                                         type="email"
-                                        className="rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-500"
+                                        className={`rounded-xl border px-4 py-3 text-sm outline-none transition ${formInputClass}`}
                                         placeholder="jane@company.com"
                                     />
                                 </label>
 
                                 <label className="grid min-w-0 gap-2 text-sm font-medium">
                                     Service needed
-                                    <select className="min-w-0 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 pr-10 text-sm outline-none transition focus:border-slate-500">
+                                    <select
+                                        className={`min-w-0 w-full rounded-xl border px-4 py-3 pr-10 text-sm outline-none transition ${formInputClass}`}
+                                    >
                                         <option>CNC machining</option>
                                         <option>Sheet metal fabrication</option>
                                         <option>Assembly support</option>
@@ -1051,7 +1151,9 @@ export default function Home() {
 
                                 <label className="grid min-w-0 gap-2 text-sm font-medium">
                                     Timeline
-                                    <select className="min-w-0 w-full rounded-xl border border-slate-200 bg-white px-4 py-3 pr-10 text-sm outline-none transition focus:border-slate-500">
+                                    <select
+                                        className={`min-w-0 w-full rounded-xl border px-4 py-3 pr-10 text-sm outline-none transition ${formInputClass}`}
+                                    >
                                         <option>ASAP</option>
                                         <option>2–4 weeks</option>
                                         <option>1–3 months</option>
@@ -1062,7 +1164,7 @@ export default function Home() {
                                 <label className="grid gap-2 text-sm font-medium md:col-span-2">
                                     Project details
                                     <textarea
-                                        className="min-h-32 rounded-xl border border-slate-200 bg-white px-4 py-3 text-sm outline-none transition focus:border-slate-500"
+                                        className={`min-h-32 rounded-xl border px-4 py-3 text-sm outline-none transition ${formInputClass}`}
                                         placeholder="Tell us about materials, quantities, tolerances, certifications, or production needs."
                                     />
                                 </label>
@@ -1079,7 +1181,10 @@ export default function Home() {
                         </div>
                     </div>
                 </section>
-                <footer className="relative z-10 border-t border-white/10 px-6 py-8 text-center text-xs leading-6 text-slate-500">
+                <footer
+                    className={`relative z-10 border-t px-6 py-8 text-center text-xs leading-6 text-slate-500 ${sectionBorderClass}`}
+                >
+                    {" "}
                     <p>
                         Unofficial redesign concept created for portfolio
                         practice. Not affiliated with Sparton Technology
