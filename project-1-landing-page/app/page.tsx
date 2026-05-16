@@ -478,6 +478,35 @@ export default function Home() {
         "Inspection, certification, or documentation needs",
     ];
 
+    const faqs = [
+        {
+            id: "quote-details",
+            question: "What should I send for a quote?",
+            answer: "Send any drawings, CAD files, prints, material requirements, quantities, tolerances, finishes, target timelines, and quality or documentation needs. The more detail your team can share, the clearer the quote path becomes.",
+        },
+        {
+            id: "project-fit",
+            question: "What types of projects are a good fit?",
+            answer: "Sparton is positioned for teams that need precision machining, sheet metal fabrication, assembly support, inspection planning, or production work where process clarity and accountability matter.",
+        },
+        {
+            id: "prototype-production",
+            question:
+                "Can one supplier support both prototypes and production?",
+            answer: "The goal is to help teams move from early technical review into a clearer production path. Prototype, production, and repeat work should be reviewed around fit, material, tolerance, documentation, and timeline needs.",
+        },
+        {
+            id: "quality-documentation",
+            question: "How are quality and documentation handled?",
+            answer: "Quality expectations should be part of the conversation before production begins. Buyers should share inspection needs, certification requirements, tolerances, and any documentation expectations during the RFQ stage.",
+        },
+        {
+            id: "industries",
+            question: "What industries does this support?",
+            answer: "The page is written for high-requirement markets such as aerospace, defense, medical, semiconductor, communications, sensing, filtration, and undersea exploration applications.",
+        },
+    ];
+
     const capabilities = [
         {
             id: "cnc-machining",
@@ -1142,6 +1171,76 @@ export default function Home() {
                                     >
                                         {industry}
                                     </span>
+                                ))}
+                            </div>
+                        </div>
+                    </section>
+
+                    <section
+                        id="faq"
+                        className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-left"
+                    >
+                        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+                            <div>
+                                <div className="flex items-center gap-3">
+                                    <span
+                                        className={`hidden h-3 w-3 rounded-full ring-4 md:block ${
+                                            isLightMode
+                                                ? "bg-cyan-600 ring-cyan-600/15"
+                                                : "bg-cyan-300 ring-cyan-300/15"
+                                        }`}
+                                    />
+
+                                    <p
+                                        className={`text-sm font-semibold uppercase tracking-[0.3em] ${eyebrowClass}`}
+                                    >
+                                        FAQ
+                                    </p>
+                                </div>
+
+                                <h2
+                                    className={`mt-4 text-3xl font-bold tracking-tight sm:text-4xl ${sectionHeadingClass}`}
+                                >
+                                    Answers before your team starts the quote
+                                    conversation.
+                                </h2>
+
+                                <p
+                                    className={`mt-5 text-sm leading-7 sm:text-base ${sectionBodyClass}`}
+                                >
+                                    These questions help engineering and
+                                    procurement teams understand what to prepare
+                                    before sending drawings, requirements, or
+                                    production details for review.
+                                </p>
+                            </div>
+
+                            <div className="grid gap-4">
+                                {faqs.map((faq) => (
+                                    <details
+                                        key={faq.id}
+                                        className={`group rounded-2xl border p-5 transition ${standardCardClass}`}
+                                    >
+                                        <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-semibold">
+                                            <span>{faq.question}</span>
+                                            <span
+                                                aria-hidden="true"
+                                                className={`grid h-8 w-8 shrink-0 place-items-center rounded-full transition group-open:rotate-180 ${
+                                                    isLightMode
+                                                        ? "bg-slate-100 text-cyan-800"
+                                                        : "bg-white/10 text-cyan-300"
+                                                }`}
+                                            >
+                                                ↓
+                                            </span>
+                                        </summary>
+
+                                        <p
+                                            className={`mt-4 text-sm leading-7 ${mutedBodyClass}`}
+                                        >
+                                            {faq.answer}
+                                        </p>
+                                    </details>
                                 ))}
                             </div>
                         </div>
