@@ -379,14 +379,6 @@ export default function Home() {
         ? "border-slate-200 bg-white text-slate-950 shadow-lg shadow-slate-950/5 hover:border-slate-300"
         : "border-white/10 bg-white/5 text-white hover:border-white/20 hover:bg-white/10";
 
-    const deepCardClass = isLightMode
-        ? "border-slate-200 bg-white text-slate-950 shadow-lg shadow-slate-950/5 hover:border-slate-300"
-        : "border-white/10 bg-slate-900/60 text-white hover:border-white/20 hover:bg-white/10";
-
-    const innerPanelClass = isLightMode
-        ? "bg-slate-100 text-slate-600"
-        : "bg-slate-900/70 text-slate-300";
-
     const sectionBorderClass = isLightMode
         ? "border-slate-200"
         : "border-white/10";
@@ -500,32 +492,6 @@ export default function Home() {
         return () => window.removeEventListener("scroll", handleScroll);
     }, []);
 
-    const capabilityDetails = [
-        {
-            id: "precision-machining",
-            title: "Precision machining",
-            bestFor:
-                "Tight-tolerance components, prototypes, fixtures, production parts, and machined assemblies.",
-            confidence:
-                "Start with a clear review of process fit, material needs, tolerance expectations, and production requirements.",
-        },
-        {
-            id: "fabrication",
-            title: "Sheet metal and fabrication",
-            bestFor:
-                "Formed parts, laser-cut components, welded structures, fabricated enclosures, and heavy-gage assemblies.",
-            confidence:
-                "Keep machining and fabrication work connected when the project needs fewer handoffs and stronger accountability.",
-        },
-        {
-            id: "quality-documentation",
-            title: "Inspection and documentation",
-            bestFor:
-                "Aerospace, defense, medical, semiconductor, and industrial programs with traceability or repeatability needs.",
-            confidence:
-                "Align drawings, tolerances, certifications, and inspection expectations before production begins.",
-        },
-    ];
     const qualityPoints = [
         {
             id: "certified-process",
@@ -613,30 +579,6 @@ export default function Home() {
         "Detection & sensing",
         "Water filtration",
         "Undersea exploration",
-    ];
-
-    const processSteps = [
-        {
-            id: "drawings",
-            step: "01",
-            title: "Send the technical package",
-            description:
-                "Share drawings, CAD files, materials, quantities, tolerances, finishes, timelines, and documentation needs.",
-        },
-        {
-            id: "review",
-            step: "02",
-            title: "Review the manufacturing path",
-            description:
-                "Sparton reviews the work for process fit, quality requirements, production expectations, and any details that need clarification.",
-        },
-        {
-            id: "quote",
-            step: "03",
-            title: "Move forward with a clearer quote",
-            description:
-                "Your team receives a quote path shaped around the scope, requirements, timeline, and production needs of the project.",
-        },
     ];
 
     const handleSolutionsCarouselScroll = () => {
