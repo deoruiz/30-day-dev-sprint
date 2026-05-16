@@ -444,6 +444,8 @@ export default function Home() {
     const [hasSeenSolutions, setHasSeenSolutions] = useState(false);
     const solutionsCarouselRef = useRef<HTMLDivElement | null>(null);
     const [activeSolutionIndex, setActiveSolutionIndex] = useState(0);
+    const capabilitiesRef = useRef<HTMLElement | null>(null);
+    const [hasSeenCapabilities, setHasSeenCapabilities] = useState(false);
     useEffect(() => {
         const section = solutionsRef.current;
 
@@ -464,6 +466,28 @@ export default function Home() {
 
         return () => observer.disconnect();
     }, []);
+
+    useEffect(() => {
+        const section = capabilitiesRef.current;
+
+        if (!section) {
+            return;
+        }
+
+        const observer = new IntersectionObserver(
+            ([entry]) => {
+                setHasSeenCapabilities(entry.isIntersecting);
+            },
+            {
+                threshold: 0.15,
+            },
+        );
+
+        observer.observe(section);
+
+        return () => observer.disconnect();
+    }, []);
+
     useEffect(() => {
         const handleScroll = () => {
             setHasScrolled(window.scrollY > 20);
@@ -1103,76 +1127,93 @@ export default function Home() {
                     )}
 
                     <section
+                        ref={capabilitiesRef}
                         id="capabilities"
                         className="relative z-10 mx-auto max-w-6xl px-6 py-24 text-left"
                     >
                         <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-                            <div>
-                                <div className="flex items-center gap-3">
-                                    <span
-                                        className={`hidden h-3 w-3 rounded-full ring-4 md:block ${
+                            <div
+                                className={
+                                    hasSeenCapabilities
+                                        ? "animate-ease-in-left"
+                                        : "opacity-0"
+                                }
+                            >
+                                <div>
+                                    <div className="flex items-center gap-3">
+                                        <span
+                                            className={`hidden h-3 w-3 rounded-full ring-4 md:block ${
+                                                isLightMode
+                                                    ? "bg-cyan-600 ring-cyan-600/15"
+                                                    : "bg-cyan-300 ring-cyan-300/15"
+                                            }`}
+                                        />
+
+                                        <p
+                                            className={`text-sm font-semibold uppercase tracking-[0.3em] ${eyebrowClass}`}
+                                        >
+                                            Capabilities
+                                        </p>
+                                    </div>
+
+                                    <h2
+                                        className={`mt-4 text-3xl font-bold tracking-tight sm:text-5xl ${sectionHeadingClass}`}
+                                    >
+                                        Capability, quality, and accountability
+                                        in one manufacturing path.
+                                    </h2>
+
+                                    <p
+                                        className={`mt-5 text-base leading-8 ${sectionBodyClass}`}
+                                    >
+                                        From first drawing review to finished
+                                        component, Sparton helps engineering and
+                                        procurement teams keep the critical
+                                        details connected: process, material,
+                                        tolerance, documentation, timeline, and
+                                        delivery.
+                                    </p>
+
+                                    <div
+                                        className={`mt-8 rounded-3xl border p-6 ${
                                             isLightMode
-                                                ? "bg-cyan-600 ring-cyan-600/15"
-                                                : "bg-cyan-300 ring-cyan-300/15"
+                                                ? "border-slate-200 bg-white text-slate-950 shadow-xl shadow-slate-950/5"
+                                                : "border-white/10 bg-slate-900/70 text-white shadow-xl shadow-black/20"
                                         }`}
-                                    />
-
-                                    <p
-                                        className={`text-sm font-semibold uppercase tracking-[0.3em] ${eyebrowClass}`}
                                     >
-                                        Capabilities
-                                    </p>
-                                </div>
+                                        <p
+                                            className={`text-sm font-semibold uppercase tracking-[0.24em] ${eyebrowClass}`}
+                                        >
+                                            Production confidence
+                                        </p>
 
-                                <h2
-                                    className={`mt-4 text-3xl font-bold tracking-tight sm:text-5xl ${sectionHeadingClass}`}
-                                >
-                                    Capability, quality, and accountability in
-                                    one manufacturing path.
-                                </h2>
+                                        <h3 className="mt-4 text-2xl font-bold tracking-tight">
+                                            Review the part, the process, and
+                                            the risk before production starts.
+                                        </h3>
 
-                                <p
-                                    className={`mt-5 text-base leading-8 ${sectionBodyClass}`}
-                                >
-                                    From first drawing review to finished
-                                    component, Sparton helps engineering and
-                                    procurement teams keep the critical details
-                                    connected: process, material, tolerance,
-                                    documentation, timeline, and delivery.
-                                </p>
-
-                                <div
-                                    className={`mt-8 rounded-3xl border p-6 ${
-                                        isLightMode
-                                            ? "border-slate-200 bg-white text-slate-950 shadow-xl shadow-slate-950/5"
-                                            : "border-white/10 bg-slate-900/70 text-white shadow-xl shadow-black/20"
-                                    }`}
-                                >
-                                    <p
-                                        className={`text-sm font-semibold uppercase tracking-[0.24em] ${eyebrowClass}`}
-                                    >
-                                        Production confidence
-                                    </p>
-
-                                    <h3 className="mt-4 text-2xl font-bold tracking-tight">
-                                        Review the part, the process, and the
-                                        risk before production starts.
-                                    </h3>
-
-                                    <p
-                                        className={`mt-4 text-sm leading-7 ${sectionBodyClass}`}
-                                    >
-                                        The right supplier should understand
-                                        more than a single operation. Sparton
-                                        helps teams clarify manufacturing fit,
-                                        quality expectations, inspection needs,
-                                        and documentation requirements before
-                                        work moves forward.
-                                    </p>
+                                        <p
+                                            className={`mt-4 text-sm leading-7 ${sectionBodyClass}`}
+                                        >
+                                            The right supplier should understand
+                                            more than a single operation.
+                                            Sparton helps teams clarify
+                                            manufacturing fit, quality
+                                            expectations, inspection needs, and
+                                            documentation requirements before
+                                            work moves forward.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
 
-                            <div className="grid gap-4">
+                            <div
+                                className={`grid gap-4 ${
+                                    hasSeenCapabilities
+                                        ? "animate-ease-in-right"
+                                        : "opacity-0"
+                                }`}
+                            >
                                 {capabilities.map((capability) => (
                                     <div
                                         key={capability.id}
