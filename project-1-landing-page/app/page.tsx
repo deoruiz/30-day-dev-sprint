@@ -175,7 +175,20 @@ function CinematicHero() {
                                 className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                 aria-label="Previous hero slide"
                             >
-                                ←
+                                <svg
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                    className="h-4 w-4"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M12.5 5L7.5 10L12.5 15"
+                                        stroke="currentColor"
+                                        strokeWidth="1.8"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
                             </button>
 
                             <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/20">
@@ -197,7 +210,20 @@ function CinematicHero() {
                                 className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                 aria-label="Next hero slide"
                             >
-                                →
+                                <svg
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                    className="h-4 w-4"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M7.5 5L12.5 10L7.5 15"
+                                        stroke="currentColor"
+                                        strokeWidth="1.8"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
                             </button>
                         </div>
 
@@ -241,7 +267,20 @@ function CinematicHero() {
                                     className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                     aria-label="Previous hero slide"
                                 >
-                                    ←
+                                    <svg
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        className="h-4 w-4"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M12.5 5L7.5 10L12.5 15"
+                                            stroke="currentColor"
+                                            strokeWidth="1.8"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
                                 </button>
 
                                 <div className="h-1 flex-1 overflow-hidden rounded-full bg-white/20">
@@ -263,7 +302,20 @@ function CinematicHero() {
                                     className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                     aria-label="Next hero slide"
                                 >
-                                    →
+                                    <svg
+                                        viewBox="0 0 20 20"
+                                        fill="none"
+                                        className="h-4 w-4"
+                                        aria-hidden="true"
+                                    >
+                                        <path
+                                            d="M7.5 5L12.5 10L7.5 15"
+                                            stroke="currentColor"
+                                            strokeWidth="1.8"
+                                            strokeLinecap="round"
+                                            strokeLinejoin="round"
+                                        />
+                                    </svg>
                                 </button>
                             </div>
                         </div>
@@ -646,9 +698,13 @@ export default function Home() {
                     <a
                         href="#"
                         className={`justify-self-start rounded-full px-3 py-2 text-sm font-black uppercase tracking-[0.22em] drop-shadow-lg transition md:justify-self-center md:px-0 md:py-0 md:tracking-[0.28em] ${focusRingClass} ${
-                            hasScrolled && isLightMode
-                                ? "text-slate-950"
-                                : "bg-slate-950/25 text-white backdrop-blur-sm md:bg-transparent md:backdrop-blur-none"
+                            isLightMode
+                                ? hasScrolled || isMobileMenuOpen
+                                    ? "text-slate-950"
+                                    : "text-white"
+                                : hasScrolled || isMobileMenuOpen
+                                  ? "text-white"
+                                  : "bg-slate-950/25 text-white backdrop-blur-sm md:bg-transparent md:backdrop-blur-none"
                         }`}
                     >
                         Sparton
@@ -919,7 +975,20 @@ export default function Home() {
                                             className="mt-6 inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white backdrop-blur transition hover:bg-cyan-300 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                         >
                                             Discuss this service
-                                            <span aria-hidden="true">→</span>
+                                            <svg
+                                                viewBox="0 0 20 20"
+                                                fill="none"
+                                                className="h-4 w-4"
+                                                aria-hidden="true"
+                                            >
+                                                <path
+                                                    d="M7.5 5L12.5 10L7.5 15"
+                                                    stroke="currentColor"
+                                                    strokeWidth="1.8"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
                                         </a>
                                     </div>
                                 </article>
@@ -974,7 +1043,20 @@ export default function Home() {
                                             className="mt-6 inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white backdrop-blur transition hover:bg-cyan-300 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                         >
                                             Discuss this service
-                                            <span aria-hidden="true">→</span>
+                                            <svg
+                                                viewBox="0 0 20 20"
+                                                fill="none"
+                                                className="h-4 w-4"
+                                                aria-hidden="true"
+                                            >
+                                                <path
+                                                    d="M7.5 5L12.5 10L7.5 15"
+                                                    stroke="currentColor"
+                                                    strokeWidth="1.8"
+                                                    strokeLinecap="round"
+                                                    strokeLinejoin="round"
+                                                />
+                                            </svg>
                                         </a>
                                     </div>
                                 </article>
@@ -1231,7 +1313,20 @@ export default function Home() {
                                                         : "bg-white/10 text-cyan-300"
                                                 }`}
                                             >
-                                                ↓
+                                                <svg
+                                                    viewBox="0 0 20 20"
+                                                    fill="none"
+                                                    className="h-4 w-4"
+                                                    aria-hidden="true"
+                                                >
+                                                    <path
+                                                        d="M5 7.5L10 12.5L15 7.5"
+                                                        stroke="currentColor"
+                                                        strokeWidth="1.8"
+                                                        strokeLinecap="round"
+                                                        strokeLinejoin="round"
+                                                    />
+                                                </svg>
                                             </span>
                                         </summary>
 
@@ -1502,9 +1597,21 @@ export default function Home() {
 
                                     <span
                                         aria-hidden="true"
-                                        className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/30 text-lg transition group-hover:translate-x-1"
+                                        className="grid h-10 w-10 shrink-0 place-items-center rounded-full bg-white/30 transition group-hover:translate-x-1"
                                     >
-                                        →
+                                        <svg
+                                            viewBox="0 0 20 20"
+                                            fill="none"
+                                            className="h-5 w-5"
+                                        >
+                                            <path
+                                                d="M7.5 5L12.5 10L7.5 15"
+                                                stroke="currentColor"
+                                                strokeWidth="1.9"
+                                                strokeLinecap="round"
+                                                strokeLinejoin="round"
+                                            />
+                                        </svg>
                                     </span>
                                 </button>
 
@@ -1517,13 +1624,175 @@ export default function Home() {
                     </section>
                 </div>
                 <footer
-                    className={`relative z-10 border-t px-6 py-8 text-center text-xs leading-6 text-slate-500 ${sectionBorderClass}`}
+                    className={`relative z-10 border-t px-6 py-12 ${sectionBorderClass}`}
                 >
-                    <p>
-                        Unofficial redesign concept created for portfolio
-                        practice. Not affiliated with Sparton Technology
-                        Corporation.
-                    </p>
+                    <div className="mx-auto grid max-w-6xl gap-10 lg:grid-cols-[1.2fr_0.8fr_0.8fr_1fr]">
+                        <div>
+                            <a
+                                href="#"
+                                className={`inline-flex text-sm font-black uppercase tracking-[0.28em] transition ${focusRingClass} ${
+                                    isLightMode
+                                        ? "text-slate-950"
+                                        : "text-white"
+                                }`}
+                            >
+                                Sparton
+                            </a>
+
+                            <p
+                                className={`mt-5 max-w-sm text-sm leading-7 ${mutedBodyClass}`}
+                            >
+                                Precision manufacturing support for teams that
+                                need clear communication, accountable
+                                production, and a dependable path from drawings
+                                to quote review.
+                            </p>
+
+                            <p className="mt-6 text-xs leading-6 text-slate-500">
+                                Unofficial redesign concept created for
+                                portfolio practice. Not affiliated with Sparton
+                                Technology Corporation.
+                            </p>
+                        </div>
+
+                        <div>
+                            <h3
+                                className={`text-xs font-bold uppercase tracking-[0.22em] ${
+                                    isLightMode
+                                        ? "text-slate-900"
+                                        : "text-slate-200"
+                                }`}
+                            >
+                                Navigate
+                            </h3>
+
+                            <ul className="mt-5 space-y-3">
+                                {[
+                                    { label: "Home", href: "#" },
+                                    { label: "Solutions", href: "#solutions" },
+                                    {
+                                        label: "Capabilities",
+                                        href: "#capabilities",
+                                    },
+                                    {
+                                        label: "Industries",
+                                        href: "#industries",
+                                    },
+                                    { label: "FAQ", href: "#faq" },
+                                ].map((link) => (
+                                    <li key={link.label}>
+                                        <a
+                                            href={link.href}
+                                            className={`text-sm transition ${focusRingClass} ${
+                                                isLightMode
+                                                    ? "text-slate-600 hover:text-slate-950"
+                                                    : "text-slate-400 hover:text-white"
+                                            }`}
+                                        >
+                                            {link.label}
+                                        </a>
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div>
+                            <h3
+                                className={`text-xs font-bold uppercase tracking-[0.22em] ${
+                                    isLightMode
+                                        ? "text-slate-900"
+                                        : "text-slate-200"
+                                }`}
+                            >
+                                Capabilities
+                            </h3>
+
+                            <ul className="mt-5 space-y-3">
+                                {[
+                                    "CNC machining",
+                                    "Sheet metal fabrication",
+                                    "Assembly support",
+                                    "Quality assurance",
+                                    "Inspection planning",
+                                ].map((item) => (
+                                    <li
+                                        key={item}
+                                        className={`text-sm ${
+                                            isLightMode
+                                                ? "text-slate-600"
+                                                : "text-slate-400"
+                                        }`}
+                                    >
+                                        {item}
+                                    </li>
+                                ))}
+                            </ul>
+                        </div>
+
+                        <div
+                            className={`rounded-3xl border p-6 ${
+                                isLightMode
+                                    ? "border-slate-200 bg-white text-slate-950 shadow-lg shadow-slate-950/5"
+                                    : "border-white/10 bg-white/5 text-white"
+                            }`}
+                        >
+                            <p
+                                className={`text-xs font-bold uppercase tracking-[0.22em] ${eyebrowClass}`}
+                            >
+                                Start the quote path
+                            </p>
+
+                            <h3 className="mt-4 text-xl font-bold tracking-tight">
+                                Have drawings or production details ready?
+                            </h3>
+
+                            <p
+                                className={`mt-3 text-sm leading-6 ${mutedBodyClass}`}
+                            >
+                                Send the files, quantities, materials,
+                                tolerances, and timeline your team already has.
+                            </p>
+
+                            <a
+                                href="#rfq"
+                                className={`mt-6 inline-flex w-full items-center justify-between rounded-2xl px-4 py-3 text-sm font-bold transition hover:-translate-y-0.5 ${focusRingClass} ${
+                                    isLightMode
+                                        ? "bg-slate-950 text-white hover:bg-slate-800"
+                                        : "bg-cyan-300 text-slate-950 hover:bg-cyan-200"
+                                }`}
+                            >
+                                Request quote review
+                                <svg
+                                    viewBox="0 0 20 20"
+                                    fill="none"
+                                    className="h-4 w-4"
+                                    aria-hidden="true"
+                                >
+                                    <path
+                                        d="M7.5 5L12.5 10L7.5 15"
+                                        stroke="currentColor"
+                                        strokeWidth="1.8"
+                                        strokeLinecap="round"
+                                        strokeLinejoin="round"
+                                    />
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div
+                        className={`mx-auto mt-10 flex max-w-6xl flex-col gap-3 border-t pt-6 text-xs sm:flex-row sm:items-center sm:justify-between ${sectionBorderClass}`}
+                    >
+                        <p className="text-slate-500">
+                            © 2026 Sparton redesign concept. Built for frontend
+                            portfolio practice.
+                        </p>
+
+                        <p className="text-slate-500">
+                            Designed to improve RFQ clarity, trust, and buyer
+                            confidence.
+                        </p>
+                    </div>
                 </footer>
             </main>
         </>
