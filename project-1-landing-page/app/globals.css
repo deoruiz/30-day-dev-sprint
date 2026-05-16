@@ -133,5 +133,9 @@ html {
 }
 
 section {
-  scroll-margin-top: 112px;
+  scroll-margin-top: 96px;
+}
+
+body {
+  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
 }

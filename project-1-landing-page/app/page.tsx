@@ -154,14 +154,14 @@ function CinematicHero() {
                             <div className="mt-8 flex flex-col gap-3 sm:flex-row">
                                 <a
                                     href="#rfq"
-                                    className="rounded-full bg-cyan-300 px-6 py-3 text-center text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-200"
+                                    className="rounded-full bg-cyan-300 px-6 py-3 text-center text-sm font-bold text-slate-950 transition hover:-translate-y-0.5 hover:bg-cyan-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-100 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                 >
                                     {activeSlide.cta}
                                 </a>
 
                                 <a
                                     href="#capabilities"
-                                    className="rounded-full border border-white/20 bg-white/5 px-6 py-3 text-center text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/10"
+                                    className="rounded-full border border-white/20 bg-white/5 px-6 py-3 text-center text-sm font-bold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                 >
                                     {activeSlide.secondaryCta}
                                 </a>
@@ -172,7 +172,7 @@ function CinematicHero() {
                             <button
                                 type="button"
                                 onClick={goToPreviousSlide}
-                                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10"
+                                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                 aria-label="Previous hero slide"
                             >
                                 ←
@@ -194,7 +194,7 @@ function CinematicHero() {
                             <button
                                 type="button"
                                 onClick={goToNextSlide}
-                                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10"
+                                className="grid h-10 w-10 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                 aria-label="Next hero slide"
                             >
                                 →
@@ -209,7 +209,7 @@ function CinematicHero() {
                                         type="button"
                                         onClick={() => goToSlide(index)}
                                         aria-pressed={index === activeIndex}
-                                        className={`group relative min-h-72 overflow-hidden rounded-2xl border text-left shadow-2xl shadow-black/30 transition ${
+                                        className={`group relative min-h-72 overflow-hidden rounded-2xl border text-left shadow-2xl shadow-black/30 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950 ${
                                             index === activeIndex
                                                 ? "border-cyan-300/70 opacity-100 shadow-[0_0_0_1px_rgba(103,232,249,0.45),0_24px_50px_rgba(0,0,0,0.38)]"
                                                 : "border-white/15 opacity-80 hover:-translate-y-2 hover:border-white/40 hover:opacity-100"
@@ -238,7 +238,7 @@ function CinematicHero() {
                                 <button
                                     type="button"
                                     onClick={goToPreviousSlide}
-                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10"
+                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                     aria-label="Previous hero slide"
                                 >
                                     ←
@@ -260,7 +260,7 @@ function CinematicHero() {
                                 <button
                                     type="button"
                                     onClick={goToNextSlide}
-                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10"
+                                    className="grid h-11 w-11 place-items-center rounded-full border border-white/15 text-white transition hover:bg-white/10 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                     aria-label="Next hero slide"
                                 >
                                     →
@@ -297,24 +297,31 @@ export default function Home() {
         });
     };
 
+    const sectionHeadingClass = isLightMode
+        ? "text-slate-900"
+        : "text-slate-50";
+    const sectionBodyClass = isLightMode ? "text-slate-700" : "text-slate-300";
+    const mutedBodyClass = isLightMode ? "text-slate-600" : "text-slate-400";
+    const eyebrowClass = isLightMode ? "text-cyan-800" : "text-cyan-300";
+    const focusRingClass = isLightMode
+        ? "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-700 focus-visible:ring-offset-2 focus-visible:ring-offset-white"
+        : "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950";
+
     const themeToggleButton = (
         <button
             type="button"
             onClick={toggleTheme}
-            className={`grid h-10 w-10 place-items-center rounded-full border text-sm font-bold transition ${
+            className={`grid h-10 w-10 place-items-center rounded-full border text-sm font-bold transition ${focusRingClass} ${
                 isLightMode
                     ? "border-slate-300 bg-white/80 text-slate-950 hover:bg-slate-100"
                     : "border-white/15 bg-slate-950/30 text-white hover:bg-white/10"
             }`}
             aria-label={`Switch to ${isLightMode ? "dark" : "light"} mode`}
+            aria-pressed={isLightMode}
         >
             {isLightMode ? "☾" : "☀"}
         </button>
     );
-
-    const sectionHeadingClass = isLightMode ? "text-slate-950" : "text-white";
-    const sectionBodyClass = isLightMode ? "text-slate-600" : "text-slate-300";
-    const mutedBodyClass = isLightMode ? "text-slate-600" : "text-slate-400";
 
     const standardCardClass = isLightMode
         ? "border-slate-200 bg-white text-slate-950 shadow-lg shadow-slate-950/5 hover:border-slate-300"
@@ -333,8 +340,8 @@ export default function Home() {
         : "border-white/10";
 
     const formInputClass = isLightMode
-        ? "border-slate-200 bg-white text-slate-950 placeholder:text-slate-400 focus:border-slate-500"
-        : "border-white/10 bg-slate-900 text-white placeholder:text-slate-500 focus:border-cyan-300";
+        ? "border-slate-300 bg-white text-slate-950 placeholder:text-slate-500 focus:border-cyan-700 focus:ring-2 focus:ring-cyan-700/20"
+        : "border-white/15 bg-slate-900 text-white placeholder:text-slate-400 focus:border-cyan-300 focus:ring-2 focus:ring-cyan-300/20";
 
     const funnelConnectorClass = isLightMode
         ? "border-cyan-700/20 bg-white/85 text-slate-700 shadow-lg shadow-cyan-900/10"
@@ -362,11 +369,7 @@ export default function Home() {
                 <button
                     type="button"
                     onClick={() => scrollToSection(href)}
-                    className={`relative z-10 grid h-8 w-8 place-items-center rounded-full shadow-lg transition hover:scale-105 focus:outline-none focus:ring-2 focus:ring-cyan-300 focus:ring-offset-2 ${
-                        isLightMode
-                            ? "focus:ring-offset-white"
-                            : "focus:ring-offset-slate-950"
-                    } ${funnelArrowClass}`}
+                    className={`relative z-10 grid h-8 w-8 place-items-center rounded-full shadow-lg transition hover:scale-105 ${focusRingClass} ${funnelArrowClass}`}
                     aria-label={`Jump to ${label.replace("Next: ", "").replace("Final step: ", "")}`}
                 >
                     <svg viewBox="0 0 20 20" fill="none" className="h-4 w-4">
@@ -560,6 +563,13 @@ export default function Home() {
 
     return (
         <>
+            <a
+                href="#main-content"
+                className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:rounded-full focus:bg-cyan-300 focus:px-5 focus:py-3 focus:text-sm focus:font-bold focus:text-slate-950 focus:outline-none focus:ring-2 focus:ring-cyan-100 focus:ring-offset-2 focus:ring-offset-slate-950"
+            >
+                Skip to main content
+            </a>
+
             <header
                 className={`fixed left-0 right-0 top-0 z-50 border-b transition duration-300 ${
                     hasScrolled || isMobileMenuOpen
@@ -569,13 +579,11 @@ export default function Home() {
                         : "border-transparent bg-transparent backdrop-blur-none"
                 }`}
             >
-                {" "}
                 <nav className="mx-auto grid max-w-7xl grid-cols-[auto_1fr_auto] items-center gap-3 px-4 py-3 sm:px-6 md:grid-cols-[1fr_auto_1fr] lg:px-8">
-                    {" "}
                     <div className="hidden items-center gap-6 md:flex">
                         <a
                             href="#"
-                            className={`text-sm font-medium drop-shadow transition ${
+                            className={`text-sm font-medium drop-shadow transition ${focusRingClass} ${
                                 hasScrolled && isLightMode
                                     ? "text-slate-700 hover:text-slate-950"
                                     : "text-white/85 hover:text-white"
@@ -586,7 +594,7 @@ export default function Home() {
 
                         <a
                             href="#solutions"
-                            className={`text-sm font-medium drop-shadow transition ${
+                            className={`text-sm font-medium drop-shadow transition ${focusRingClass} ${
                                 hasScrolled && isLightMode
                                     ? "text-slate-700 hover:text-slate-950"
                                     : "text-white/85 hover:text-white"
@@ -597,7 +605,7 @@ export default function Home() {
 
                         <a
                             href="#about"
-                            className={`text-sm font-medium drop-shadow transition ${
+                            className={`text-sm font-medium drop-shadow transition ${focusRingClass} ${
                                 hasScrolled && isLightMode
                                     ? "text-slate-700 hover:text-slate-950"
                                     : "text-white/85 hover:text-white"
@@ -608,7 +616,7 @@ export default function Home() {
                     </div>
                     <a
                         href="#"
-                        className={`justify-self-start rounded-full px-3 py-2 text-sm font-black uppercase tracking-[0.22em] drop-shadow-lg transition md:justify-self-center md:px-0 md:py-0 md:tracking-[0.28em] ${
+                        className={`justify-self-start rounded-full px-3 py-2 text-sm font-black uppercase tracking-[0.22em] drop-shadow-lg transition md:justify-self-center md:px-0 md:py-0 md:tracking-[0.28em] ${focusRingClass} ${
                             hasScrolled && isLightMode
                                 ? "text-slate-950"
                                 : "bg-slate-950/25 text-white backdrop-blur-sm md:bg-transparent md:backdrop-blur-none"
@@ -619,7 +627,7 @@ export default function Home() {
                     <div className="hidden items-center justify-end gap-4 md:flex">
                         <a
                             href="#rfq"
-                            className={`text-sm font-medium drop-shadow transition ${
+                            className={`text-sm font-medium drop-shadow transition ${focusRingClass} ${
                                 hasScrolled && isLightMode
                                     ? "text-slate-700 hover:text-slate-950"
                                     : "text-white/85 hover:text-white"
@@ -630,7 +638,7 @@ export default function Home() {
 
                         <a
                             href="#rfq"
-                            className={`rounded-full px-5 py-2.5 text-sm font-bold transition ${
+                            className={`rounded-full px-5 py-2.5 text-sm font-bold transition ${focusRingClass} ${
                                 isLightMode
                                     ? "bg-slate-950 text-white hover:bg-slate-800"
                                     : "bg-white text-slate-950 hover:bg-slate-200"
@@ -647,13 +655,14 @@ export default function Home() {
                             onClick={() =>
                                 setIsMobileMenuOpen((isOpen) => !isOpen)
                             }
-                            className={`group grid h-10 w-10 place-items-center rounded-full border backdrop-blur transition ${
+                            className={`group grid h-10 w-10 place-items-center rounded-full border backdrop-blur transition ${focusRingClass} ${
                                 isLightMode
                                     ? "border-slate-300 bg-white/80 text-slate-950 hover:bg-slate-100"
                                     : "border-white/15 bg-slate-950/30 text-white hover:bg-white/10"
                             }`}
                             aria-label="Toggle mobile menu"
                             aria-expanded={isMobileMenuOpen}
+                            aria-controls="mobile-menu"
                         >
                             <span className="relative h-4 w-5">
                                 <span
@@ -677,18 +686,21 @@ export default function Home() {
                     </div>
                 </nav>
                 <div
+                    id="mobile-menu"
+                    aria-hidden={!isMobileMenuOpen}
                     className={`overflow-hidden transition-all duration-300 md:hidden ${
                         isMobileMenuOpen
                             ? isLightMode
-                                ? "max-h-96 border-t border-slate-200 opacity-100"
-                                : "max-h-96 border-t border-white/10 opacity-100"
-                            : "max-h-0 border-t border-transparent opacity-0"
+                                ? "visible max-h-96 border-t border-slate-200 opacity-100"
+                                : "visible max-h-96 border-t border-white/10 opacity-100"
+                            : "invisible max-h-0 border-t border-transparent opacity-0"
                     }`}
                 >
                     <nav className="mx-auto grid max-w-7xl gap-2 px-4 py-4 sm:px-6">
                         <a
                             href="#"
-                            className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
+                            onClick={() => setIsMobileMenuOpen(false)}
+                            className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${focusRingClass} ${
                                 isLightMode
                                     ? "border-slate-200 bg-white text-slate-800 hover:bg-slate-100 hover:text-slate-950"
                                     : "border-white/10 bg-white/5 text-white/85 hover:bg-white/10 hover:text-white"
@@ -700,7 +712,7 @@ export default function Home() {
                         <a
                             href="#solutions"
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
+                            className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${focusRingClass} ${
                                 isLightMode
                                     ? "border-slate-200 bg-white text-slate-800 hover:bg-slate-100 hover:text-slate-950"
                                     : "border-white/10 bg-white/5 text-white/85 hover:bg-white/10 hover:text-white"
@@ -712,7 +724,7 @@ export default function Home() {
                         <a
                             href="#about"
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
+                            className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${focusRingClass} ${
                                 isLightMode
                                     ? "border-slate-200 bg-white text-slate-800 hover:bg-slate-100 hover:text-slate-950"
                                     : "border-white/10 bg-white/5 text-white/85 hover:bg-white/10 hover:text-white"
@@ -724,7 +736,7 @@ export default function Home() {
                         <a
                             href="#rfq"
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${
+                            className={`rounded-2xl border px-4 py-3 text-sm font-semibold transition ${focusRingClass} ${
                                 isLightMode
                                     ? "border-slate-200 bg-white text-slate-800 hover:bg-slate-100 hover:text-slate-950"
                                     : "border-white/10 bg-white/5 text-white/85 hover:bg-white/10 hover:text-white"
@@ -736,7 +748,7 @@ export default function Home() {
                         <a
                             href="#rfq"
                             onClick={() => setIsMobileMenuOpen(false)}
-                            className={`mt-2 rounded-2xl px-4 py-3 text-center text-sm font-bold transition ${
+                            className={`mt-2 rounded-2xl px-4 py-3 text-center text-sm font-bold transition ${focusRingClass} ${
                                 isLightMode
                                     ? "bg-slate-950 text-white hover:bg-slate-800"
                                     : "bg-white text-slate-950 hover:bg-slate-200"
@@ -749,13 +761,13 @@ export default function Home() {
             </header>
 
             <main
+                id="main-content"
                 className={`relative min-h-screen overflow-x-hidden transition duration-300 ${
                     isLightMode
                         ? "bg-[#eef1f4] text-slate-950"
                         : "bg-slate-950 text-white"
                 }`}
             >
-                {" "}
                 <div
                     className={`pointer-events-none absolute left-1/2 top-0 h-96 w-96 -translate-x-1/2 rounded-full blur-3xl ${
                         isLightMode ? "bg-cyan-300/30" : "bg-cyan-500/20"
@@ -792,11 +804,7 @@ export default function Home() {
                                     />
 
                                     <p
-                                        className={`text-sm font-semibold uppercase tracking-[0.3em] ${
-                                            isLightMode
-                                                ? "text-cyan-700"
-                                                : "text-cyan-300"
-                                        } ${hasSeenSolutions ? "animate-ease-in-top" : "opacity-0"}`}
+                                        className={`text-sm font-semibold uppercase tracking-[0.3em] ${eyebrowClass} ${hasSeenSolutions ? "animate-ease-in-top" : "opacity-0"}`}
                                     >
                                         Solutions
                                     </p>
@@ -830,9 +838,11 @@ export default function Home() {
                         <div
                             ref={solutionsCarouselRef}
                             onScroll={handleSolutionsCarouselScroll}
-                            className="-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-6 [scrollbar-width:none] [-ms-overflow-style:none] sm:-mx-6 sm:px-6 md:hidden"
+                            aria-label="Manufacturing services carousel"
+                            role="region"
+                            tabIndex={0}
+                            className={`-mx-4 flex snap-x snap-mandatory gap-5 overflow-x-auto px-4 pb-6 [scrollbar-width:none] [-ms-overflow-style:none] sm:-mx-6 sm:px-6 md:hidden ${focusRingClass}`}
                         >
-                            {" "}
                             {solutionCards.map((card, index) => (
                                 <article
                                     key={card.id}
@@ -877,7 +887,7 @@ export default function Home() {
 
                                         <a
                                             href="#rfq"
-                                            className="mt-6 inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white backdrop-blur transition hover:bg-cyan-300 hover:text-slate-950"
+                                            className="mt-6 inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white backdrop-blur transition hover:bg-cyan-300 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                         >
                                             Discuss this service
                                             <span aria-hidden="true">→</span>
@@ -932,7 +942,7 @@ export default function Home() {
 
                                         <a
                                             href="#rfq"
-                                            className="mt-6 inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white backdrop-blur transition hover:bg-cyan-300 hover:text-slate-950"
+                                            className="mt-6 inline-flex w-full items-center justify-between rounded-2xl border border-white/10 bg-white/10 px-4 py-3 text-sm font-bold text-white backdrop-blur transition hover:bg-cyan-300 hover:text-slate-950 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-cyan-300 focus-visible:ring-offset-2 focus-visible:ring-offset-slate-950"
                                         >
                                             Discuss this service
                                             <span aria-hidden="true">→</span>
@@ -951,7 +961,10 @@ export default function Home() {
                             Swipe through 3 core services
                         </p>
 
-                        <div className="mt-3 flex justify-center gap-2 md:hidden">
+                        <div
+                            aria-hidden="true"
+                            className="mt-3 flex justify-center gap-2 md:hidden"
+                        >
                             {solutionCards.map((card, index) => (
                                 <span
                                     key={`${card.id}-dot`}
@@ -982,7 +995,7 @@ export default function Home() {
                         id="capabilities"
                         className="relative z-10 mx-auto max-w-6xl px-6 py-24 text-left"
                     >
-                        <div className="grid gap-8 lg:grid-cols-[1.1fr_0.9fr]">
+                        <div className="grid gap-10 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
                             <div>
                                 <div className="flex items-center gap-3">
                                     <span
@@ -993,18 +1006,22 @@ export default function Home() {
                                         }`}
                                     />
 
-                                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
+                                    <p
+                                        className={`text-sm font-semibold uppercase tracking-[0.3em] ${eyebrowClass}`}
+                                    >
                                         Capabilities
                                     </p>
                                 </div>
 
-                                <h2 className="mt-4 max-w-3xl text-3xl font-bold tracking-tight sm:text-5xl">
-                                    One manufacturing partner for the work that
-                                    cannot afford confusion.
+                                <h2
+                                    className={`mt-4 text-3xl font-bold tracking-tight sm:text-5xl ${sectionHeadingClass}`}
+                                >
+                                    Capability, quality, and accountability in
+                                    one manufacturing path.
                                 </h2>
 
                                 <p
-                                    className={`mt-5 max-w-2xl text-base leading-8 ${sectionBodyClass}`}
+                                    className={`mt-5 text-base leading-8 ${sectionBodyClass}`}
                                 >
                                     From first drawing review to finished
                                     component, Sparton helps engineering and
@@ -1014,28 +1031,32 @@ export default function Home() {
                                 </p>
 
                                 <div
-                                    className={`mt-10 rounded-3xl border p-8 shadow-2xl ${
+                                    className={`mt-8 rounded-3xl border p-6 ${
                                         isLightMode
-                                            ? "border-slate-200 bg-white text-slate-950 shadow-slate-950/10"
-                                            : "border-white/10 bg-white text-slate-950 shadow-black/20"
+                                            ? "border-slate-200 bg-white text-slate-950 shadow-xl shadow-slate-950/5"
+                                            : "border-white/10 bg-slate-900/70 text-white shadow-xl shadow-black/20"
                                     }`}
                                 >
-                                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-                                        Integrated production
+                                    <p
+                                        className={`text-sm font-semibold uppercase tracking-[0.24em] ${eyebrowClass}`}
+                                    >
+                                        Production confidence
                                     </p>
 
                                     <h3 className="mt-4 text-2xl font-bold tracking-tight">
-                                        When the requirements are technical, the
-                                        supplier path should be simple.
+                                        Review the part, the process, and the
+                                        risk before production starts.
                                     </h3>
 
-                                    <p className="mt-4 text-sm leading-7 text-slate-600">
-                                        Send the specs once. Review the path
-                                        clearly. Move forward with a team that
-                                        can support machining, fabrication,
-                                        assembly, and quality expectations
-                                        without adding unnecessary supplier
-                                        handoffs.
+                                    <p
+                                        className={`mt-4 text-sm leading-7 ${sectionBodyClass}`}
+                                    >
+                                        The right supplier should understand
+                                        more than a single operation. Sparton
+                                        helps teams clarify manufacturing fit,
+                                        quality expectations, inspection needs,
+                                        and documentation requirements before
+                                        work moves forward.
                                     </p>
                                 </div>
                             </div>
@@ -1049,6 +1070,7 @@ export default function Home() {
                                         <h3 className="font-semibold">
                                             {capability.title}
                                         </h3>
+
                                         <p
                                             className={`mt-3 text-sm leading-6 ${mutedBodyClass}`}
                                         >
@@ -1056,88 +1078,21 @@ export default function Home() {
                                         </p>
                                     </div>
                                 ))}
-                            </div>
-                        </div>
-                    </section>
 
-                    {renderFunnelConnector(
-                        "Next: review capability depth",
-                        "#about",
-                    )}
-
-                    <section
-                        id="about"
-                        className="relative z-10 mx-auto max-w-6xl px-6 py-12 text-left"
-                    >
-                        <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
-                            <div>
-                                <div className="flex items-center gap-3">
-                                    <span
-                                        className={`hidden h-3 w-3 rounded-full ring-4 md:block ${
-                                            isLightMode
-                                                ? "bg-cyan-600 ring-cyan-600/15"
-                                                : "bg-cyan-300 ring-cyan-300/15"
-                                        }`}
-                                    />
-                                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-                                        Capability depth
-                                    </p>
-                                </div>
-                                <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-                                    Built for teams that need capability,
-                                    quality, and accountability in the same
-                                    conversation.
-                                </h2>
-
-                                <p
-                                    className={`mt-5 text-sm leading-7 sm:text-base ${sectionBodyClass}`}
-                                >
-                                    The right supplier should understand the
-                                    part, the process, and the production risk.
-                                    Sparton helps teams review the details early
-                                    so quoting, planning, and production can
-                                    move with fewer surprises.
-                                </p>
-                            </div>
-
-                            <div className="grid gap-4">
-                                {capabilityDetails.map((capability) => (
+                                {qualityPoints.map((point) => (
                                     <div
-                                        key={capability.id}
-                                        className={`rounded-2xl border p-5 transition hover:-translate-y-1 ${deepCardClass}`}
+                                        key={point.id}
+                                        className={`rounded-2xl border p-6 transition hover:-translate-y-1 ${standardCardClass}`}
                                     >
-                                        <h3 className="text-lg font-semibold">
-                                            {capability.title}
+                                        <h3 className="font-semibold">
+                                            {point.title}
                                         </h3>
 
-                                        <div className="mt-5 grid gap-4 sm:grid-cols-2">
-                                            <div
-                                                className={`rounded-2xl p-4 ${innerPanelClass}`}
-                                            >
-                                                {" "}
-                                                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-slate-500">
-                                                    Best for
-                                                </p>
-                                                <p
-                                                    className={`mt-2 text-sm leading-6 ${sectionBodyClass}`}
-                                                >
-                                                    {capability.bestFor}
-                                                </p>
-                                            </div>
-
-                                            <div
-                                                className={`rounded-2xl p-4 ${innerPanelClass}`}
-                                            >
-                                                <p className="text-xs font-semibold uppercase tracking-[0.2em] text-cyan-300">
-                                                    Buyer confidence
-                                                </p>
-                                                <p
-                                                    className={`mt-2 text-sm leading-6 ${sectionBodyClass}`}
-                                                >
-                                                    {capability.confidence}
-                                                </p>
-                                            </div>
-                                        </div>
+                                        <p
+                                            className={`mt-3 text-sm leading-6 ${mutedBodyClass}`}
+                                        >
+                                            {point.description}
+                                        </p>
                                     </div>
                                 ))}
                             </div>
@@ -1193,129 +1148,7 @@ export default function Home() {
                     </section>
 
                     {renderFunnelConnector(
-                        "Next: reduce production risk",
-                        "#quality",
-                    )}
-
-                    <section
-                        id="quality"
-                        className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-left"
-                    >
-                        <div className="grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-                            <div>
-                                <div className="flex items-center gap-3">
-                                    <span
-                                        className={`hidden h-3 w-3 rounded-full ring-4 md:block ${
-                                            isLightMode
-                                                ? "bg-cyan-600 ring-cyan-600/15"
-                                                : "bg-cyan-300 ring-cyan-300/15"
-                                        }`}
-                                    />
-                                    <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-                                        Quality assurance
-                                    </p>
-                                </div>
-                                <h2 className="mt-4 text-3xl font-bold tracking-tight sm:text-4xl">
-                                    Quality should not wait until the part is
-                                    finished.
-                                </h2>
-
-                                <p
-                                    className={`mt-5 text-sm leading-7 sm:text-base ${sectionBodyClass}`}
-                                >
-                                    When drawings, tolerances, inspection needs,
-                                    and documentation requirements are reviewed
-                                    early, everyone has a better path forward.
-                                    Sparton brings quality into the conversation
-                                    before production begins.
-                                </p>
-                            </div>
-
-                            <div className="grid gap-4">
-                                {qualityPoints.map((point) => (
-                                    <div
-                                        key={point.id}
-                                        className={`rounded-2xl border p-6 transition hover:-translate-y-1 ${standardCardClass}`}
-                                    >
-                                        <h3 className="font-semibold">
-                                            {point.title}
-                                        </h3>
-                                        <p
-                                            className={`mt-3 text-sm leading-6 ${mutedBodyClass}`}
-                                        >
-                                            {" "}
-                                            {point.description}
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-
-                    {renderFunnelConnector(
-                        "Next: prepare the quote request",
-                        "#process",
-                    )}
-
-                    <section
-                        id="process"
-                        className="relative z-10 mx-auto max-w-6xl px-6 py-20 text-left"
-                    >
-                        <div className="flex items-center gap-3">
-                            <span
-                                className={`hidden h-3 w-3 rounded-full ring-4 md:block ${
-                                    isLightMode
-                                        ? "bg-cyan-600 ring-cyan-600/15"
-                                        : "bg-cyan-300 ring-cyan-300/15"
-                                }`}
-                            />
-                            <p className="text-sm font-semibold uppercase tracking-[0.3em] text-slate-500">
-                                RFQ journey
-                            </p>
-                        </div>
-                        <div className="mt-4 grid gap-8 lg:grid-cols-[0.9fr_1.1fr] lg:items-start">
-                            <div>
-                                <h2 className="text-3xl font-bold tracking-tight sm:text-4xl">
-                                    A better quote starts with the right
-                                    details.
-                                </h2>
-
-                                <p
-                                    className={`mt-5 text-sm leading-7 sm:text-base ${sectionBodyClass}`}
-                                >
-                                    Send the files and requirements your team
-                                    already uses: drawings, materials,
-                                    quantities, tolerances, timelines, and
-                                    quality needs. The more complete the
-                                    request, the clearer the quote path becomes.
-                                </p>
-                            </div>
-
-                            <div className="grid gap-4">
-                                {processSteps.map((step) => (
-                                    <div
-                                        key={step.id}
-                                        className={`rounded-2xl border p-6 transition hover:-translate-y-1 ${standardCardClass}`}
-                                    >
-                                        <p className="text-sm font-semibold text-slate-500">
-                                            {step.step}
-                                        </p>
-                                        <h3 className="mt-3 font-semibold">
-                                            {step.title}
-                                        </h3>
-                                        <p
-                                            className={`mt-3 text-sm leading-6 ${mutedBodyClass}`}
-                                        >
-                                            {step.description}
-                                        </p>
-                                    </div>
-                                ))}
-                            </div>
-                        </div>
-                    </section>
-
-                    {renderFunnelConnector(
-                        "Final step: send the project details",
+                        "Final step: send drawings for review",
                         "#rfq",
                     )}
 
@@ -1379,7 +1212,6 @@ export default function Home() {
                                             : "bg-slate-950"
                                     }`}
                                 >
-                                    {" "}
                                     <p className="font-semibold">
                                         Include what you have{" "}
                                     </p>
@@ -1396,7 +1228,7 @@ export default function Home() {
                                                                 ? "bg-slate-950"
                                                                 : "bg-cyan-300"
                                                         }`}
-                                                    />{" "}
+                                                    />
                                                     <span>{requirement}</span>
                                                 </li>
                                             ),
@@ -1416,8 +1248,10 @@ export default function Home() {
                                     <label className="grid gap-2 text-sm font-medium">
                                         Name
                                         <input
+                                            required
                                             name="name"
                                             type="text"
+                                            autoComplete="name"
                                             className={`rounded-xl border px-4 py-3 text-sm outline-none transition ${formInputClass}`}
                                             placeholder="Jane Smith"
                                         />
@@ -1426,8 +1260,10 @@ export default function Home() {
                                     <label className="grid gap-2 text-sm font-medium">
                                         Company
                                         <input
+                                            required
                                             name="company"
                                             type="text"
+                                            autoComplete="organization"
                                             className={`rounded-xl border px-4 py-3 text-sm outline-none transition ${formInputClass}`}
                                             placeholder="Acme Aerospace"
                                         />
@@ -1436,8 +1272,10 @@ export default function Home() {
                                     <label className="grid gap-2 text-sm font-medium md:col-span-2">
                                         Work email
                                         <input
+                                            required
                                             name="email"
                                             type="email"
+                                            autoComplete="email"
                                             className={`rounded-xl border px-4 py-3 text-sm outline-none transition ${formInputClass}`}
                                             placeholder="jane@company.com"
                                         />
@@ -1447,6 +1285,8 @@ export default function Home() {
                                         Service needed
                                         <div className="relative min-w-0">
                                             <select
+                                                required
+                                                name="service"
                                                 className={`min-w-0 w-full appearance-none rounded-xl border py-3 pl-4 pr-14 text-sm outline-none transition ${formInputClass}`}
                                             >
                                                 <option>CNC machining</option>
@@ -1491,6 +1331,8 @@ export default function Home() {
                                         Timeline
                                         <div className="relative min-w-0">
                                             <select
+                                                required
+                                                name="timeline"
                                                 className={`min-w-0 w-full appearance-none rounded-xl border py-3 pl-4 pr-14 text-sm outline-none transition ${formInputClass}`}
                                             >
                                                 <option>ASAP</option>
@@ -1527,6 +1369,8 @@ export default function Home() {
                                     <label className="grid gap-2 text-sm font-medium md:col-span-2">
                                         Project details
                                         <textarea
+                                            required
+                                            name="projectDetails"
                                             className={`min-h-32 rounded-xl border px-4 py-3 text-sm outline-none transition ${formInputClass}`}
                                             placeholder="Tell us about materials, quantities, tolerances, certifications, or production needs."
                                         />
@@ -1535,7 +1379,7 @@ export default function Home() {
 
                                 <button
                                     type="button"
-                                    className={`group mt-6 flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left shadow-2xl transition hover:-translate-y-0.5 active:scale-[0.98] sm:px-6 sm:py-5 ${
+                                    className={`group mt-6 flex w-full items-center justify-between rounded-2xl px-5 py-4 text-left shadow-2xl transition hover:-translate-y-0.5 active:scale-[0.98] sm:px-6 sm:py-5 ${focusRingClass} ${
                                         isLightMode
                                             ? "bg-slate-950 text-white shadow-slate-950/20 hover:bg-slate-800"
                                             : "bg-cyan-300 text-slate-950 shadow-cyan-300/25 hover:bg-cyan-200"
@@ -1576,7 +1420,6 @@ export default function Home() {
                 <footer
                     className={`relative z-10 border-t px-6 py-8 text-center text-xs leading-6 text-slate-500 ${sectionBorderClass}`}
                 >
-                    {" "}
                     <p>
                         Unofficial redesign concept created for portfolio
                         practice. Not affiliated with Sparton Technology
